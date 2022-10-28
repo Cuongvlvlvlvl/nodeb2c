@@ -1,0 +1,63 @@
+{{!-- <h1>Log in</h1>
+<form action="/auth/login/password" method="post">
+    <section>
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" autocomplete="username" required autofocus>
+    </section>
+    <section>
+        <label for="current-password">Password</label>
+        <input id="current-password" name="password" type="password" autocomplete="current-password" required>
+    </section>
+    <button type="submit">Sign in</button>
+</form> --}}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Login to B2C</title>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="../assets/css/pageLogin/style1.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div id="wrapper">
+
+        <form id="form-login" action="/auth/login/password" method="post" name="form" class="login_form" onsubmit="return validator()">
+            <h1 class="form-heading" >Đăng nhập vào B2C</h1>
+            <div class="form-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" autocomplete="off" class="form-input" id="username" placeholder="Email" name="username"> 
+            </div>
+
+            <div id="error_user">Vui lòng nhập email</div>
+
+
+
+            <div class="form-group">
+                <i class="fa-solid fa-key"></i>
+                <input  type="password" class="form-input imput-conect"  placeholder="Password" name="password">     
+                <div id="eye">
+                    <i class="fa-regular fa-eye-slash toggle"></i>
+                </div>
+            </div>
+
+            <div id="error_password">Vui lòng nhập mật khẩu</div>
+            <i class="toggle"></i>
+ 
+            <input type="submit" value="Đăng nhập"class="form-submit">
+            <p><div class="text-center" style="color: aliceblue;">
+                {{#if err}}
+                <div class="alert">
+                    <p>{{err}}</p>
+                </div>
+                {{/if}}
+            Chưa có tài khoản? <a href="/auth/signup" >Đăng ký</a>
+            </div></p>           
+        </form>
+        
+ </div>
+     <script src="/js/fun.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+body{
+    font-size: 17px;
+    font-family: 'Poppins', sans-serif;
+    background-size: cover;
+    background-position-y: -60px;
+    background: linear-gradient(120deg,#545454,#0c0c0c);
+}
+#wrapper{ 
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#form-login{
+    max-width: 400px;
+    background: linear-gradient(120deg,#0f0743,#010008);;
+    flex-grow: 1;
+    padding: 30px 30px 40px;
+    border-radius: 12px;
+}
+#error_user,
+#error_email,
+#error_confirmpassword,
+#error_password{
+    color: #fa0303;
+    display: none;
+    font-size: 12px;  
+}
+.form-heading{
+    text-align: center;
+    color: white;
+    margin-bottom: 15px;
+}
+.form-group{
+    border-bottom: 1px solid white; 
+    margin-top: 40px;
+    display: flex;
+
+}
+.form-group i{
+    color: white;
+    font-size: 15px;
+    padding-right: 7px;
+}
+.form-input{
+    color: white ;
+    background: transparent;
+    border: 0px;
+    outline: 0px;
+    flex: 1;
+}
+#eye i{
+    padding-right: 0px;
+    cursor: pointer;
+}
+input:is(:focus, :valid) ~ label{
+   
+    top: 0;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: white;
+}
+input:is(:focus, :valid){
+    border-color: #4070f4;
+}
+.form-submit{
+    background: #2e07ee;
+    color: white;
+    width: 100%;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    transition: 0.25s ;
+    border-radius: 12px;
+    font-size: 20px;
+    margin-top: 40px;
+}
+.form-submit:hover{
+    background: #0f0743;
+    
+}
+.text-center{
+    color: white;
+}

@@ -1,0 +1,75 @@
+{{!-- <h1>Sign up</h1>
+<form action="/auth/signup" method="post">
+    <section>
+        <label for="email">email</label>
+        <input id="email" name="email" type="text" autocomplete="email" required>
+    </section>
+    <section>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="password" required>
+    </section>
+    <button type="submit">Sign up</button>
+</form> --}}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Example App</title>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="../assets/css/pageLogin/style1.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div id="wrapper">
+        <form id="form-login" action="/auth/signup" method="post" name="form" class="login_form" onsubmit="return validator()">
+            <h1 class="form-heading" >Gia nhập B2C</h1>
+            <div class="form-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" autocomplete="off" class="form-input" id="username" placeholder="USERNAME" name="username" required> 
+            </div>
+
+            <div id="error_user">Vui lòng nhập tên đăng nhập</div>
+
+            <div class="form-group">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" class="form-input" name="email" placeholder="EMAIL" autocomplete="off" required>               
+            </div>
+
+            <div id="error_email">Vui lòng nhập Email</div>
+
+            <div class="form-group">
+                <i class="fa-solid fa-key"></i>
+                <input  type="password" class="form-input imput-conect"  placeholder="PASSWORD" name="password" required>     
+                <div id="eye">
+                    <i class="fa-regular fa-eye-slash toggle"></i>
+                </div>
+            </div>
+
+            <div id="error_password">Vui lòng nhập mật khẩu</div>
+
+            <div class="form-group">
+                <i class="fa-solid fa-key"></i>
+                <input  type="password" class="form-input imput-conect" placeholder="CONFIRM PASSWORD" name="confirm" required>       
+                <div id="eye">
+                    <i class="fa-regular fa-eye-slash toggle"></i>
+                </div>
+            </div>
+
+            <div id="error_confirmpassword">Vui long nhap mat khau</div>
+            
+            <input type="submit" value="SIGNIN"class="form-submit">
+            <p><div class="text-center" style="color: aliceblue;">
+                {{#if emailConflict}}
+                    <p>{{emailConflict}}</p>
+                {{/if}}
+                {{#if passErr}}
+                    <p>{{passErr}}</p>
+                {{/if}}
+            Đã có tài khoản ? <a href="/auth/login" >Đăng nhập</a>
+            </div></p>
+        </form>
+    </div>
+        <script src="/js/fun.js"></script>
+</body>
+</html>

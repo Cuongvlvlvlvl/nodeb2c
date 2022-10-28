@@ -1,0 +1,100 @@
+FacebookTokenError: This authorization code has been used.
+    at Strategy.parseErrorResponse (/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/passport-facebook/lib/strategy.js:198:12)
+    at Strategy.OAuth2Strategy._createOAuthError (/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/passport-oauth2/lib/strategy.js:420:16)
+    at /home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/passport-oauth2/lib/strategy.js:177:45
+    at /home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/oauth/lib/oauth2.js:191:18
+    at passBackControl (/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/oauth/lib/oauth2.js:132:9)
+    at IncomingMessage.<anonymous> (/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/oauth/lib/oauth2.js:157:7)
+    at IncomingMessage.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1358:12)
+    at processTicksAndRejections (node:internal/process/task_queues:83:21)
+/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/route.js:211
+        throw new Error(msg);
+        ^
+
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/route.js:211:15)
+    at Function.proto.<computed> [as get] (/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/index.js:521:19)
+    at Object.<anonymous> (/home/bbdevelo/public_html/c/src/routes/vnpay.js:8:8)
+    at Module._compile (node:internal/modules/cjs/loader:1126:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1180:10)
+    at Module.load (node:internal/modules/cjs/loader:1004:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:839:12)
+    at Module.require (node:internal/modules/cjs/loader:1028:19)
+    at require (node:internal/modules/cjs/helpers:102:18)
+    at Object.<anonymous> (/home/bbdevelo/public_html/c/src/routes/index.js:2:13)
+/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/route.js:211
+        throw new Error(msg);
+        ^
+
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/route.js:211:15)
+    at Function.proto.<computed> [as get] (/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/index.js:521:19)
+    at Object.<anonymous> (/home/bbdevelo/public_html/c/src/routes/vnpay.js:8:8)
+    at Module._compile (node:internal/modules/cjs/loader:1126:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1180:10)
+    at Module.load (node:internal/modules/cjs/loader:1004:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:839:12)
+    at Module.require (node:internal/modules/cjs/loader:1028:19)
+    at require (node:internal/modules/cjs/helpers:102:18)
+    at Object.<anonymous> (/home/bbdevelo/public_html/c/src/routes/index.js:2:13)
+/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/route.js:211
+        throw new Error(msg);
+        ^
+
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/route.js:211:15)
+    at Function.proto.<computed> [as get] (/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/index.js:521:19)
+    at Object.<anonymous> (/home/bbdevelo/public_html/c/src/routes/vnpay.js:8:8)
+    at Module._compile (node:internal/modules/cjs/loader:1126:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1180:10)
+    at Module.load (node:internal/modules/cjs/loader:1004:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:839:12)
+    at Module.require (node:internal/modules/cjs/loader:1028:19)
+    at require (node:internal/modules/cjs/helpers:102:18)
+    at Object.<anonymous> (/home/bbdevelo/public_html/c/src/routes/index.js:2:13)
+/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/route.js:211
+        throw new Error(msg);
+        ^
+
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/route.js:211:15)
+    at Function.proto.<computed> [as get] (/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/index.js:521:19)
+    at Object.<anonymous> (/home/bbdevelo/public_html/c/src/routes/vnpay.js:8:8)
+    at Module._compile (node:internal/modules/cjs/loader:1126:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1180:10)
+    at Module.load (node:internal/modules/cjs/loader:1004:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:839:12)
+    at Module.require (node:internal/modules/cjs/loader:1028:19)
+    at require (node:internal/modules/cjs/helpers:102:18)
+    at Object.<anonymous> (/home/bbdevelo/public_html/c/src/routes/index.js:2:13)
+/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/route.js:211
+        throw new Error(msg);
+        ^
+
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/route.js:211:15)
+    at Function.proto.<computed> [as get] (/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/index.js:521:19)
+    at Object.<anonymous> (/home/bbdevelo/public_html/c/src/routes/vnpay.js:8:8)
+    at Module._compile (node:internal/modules/cjs/loader:1126:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1180:10)
+    at Module.load (node:internal/modules/cjs/loader:1004:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:839:12)
+    at Module.require (node:internal/modules/cjs/loader:1028:19)
+    at require (node:internal/modules/cjs/helpers:102:18)
+    at Object.<anonymous> (/home/bbdevelo/public_html/c/src/routes/index.js:2:13)
+/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/route.js:211
+        throw new Error(msg);
+        ^
+
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/route.js:211:15)
+    at Function.proto.<computed> [as get] (/home/bbdevelo/nodevenv/public_html/c/16/lib/node_modules/express/lib/router/index.js:521:19)
+    at Object.<anonymous> (/home/bbdevelo/public_html/c/src/routes/vnpay.js:8:8)
+    at Module._compile (node:internal/modules/cjs/loader:1126:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1180:10)
+    at Module.load (node:internal/modules/cjs/loader:1004:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:839:12)
+    at Module.require (node:internal/modules/cjs/loader:1028:19)
+    at require (node:internal/modules/cjs/helpers:102:18)
+    at Object.<anonymous> (/home/bbdevelo/public_html/c/src/routes/index.js:2:13)

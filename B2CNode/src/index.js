@@ -6,7 +6,7 @@ const handlebars = require('express-handlebars');
 const path = require('path');
 //const https = require('https');
 //const fs = require('fs');
-const port = 8000;
+const port = (process.env.PORT || 8000);
 
 const passport = require('passport');
 const LocalStrategy = require('passport-local');

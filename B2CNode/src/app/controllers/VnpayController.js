@@ -20,7 +20,7 @@ class VnpayController{
         var tmnCode = '3OKCBGET';
         var secretKey = 'DWYEYOENVIJZANMLNEDGDGDVIKPKULLE';
         var vnpUrl = 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html';
-        var returnUrl = 'http://localhost:8000/order/vnpay_return';
+        var returnUrl = 'https://b2ctech.herokuapp.com/order/vnpay_return';
 
         var date = Date.now();
         var dateFormat = require('dateformat');

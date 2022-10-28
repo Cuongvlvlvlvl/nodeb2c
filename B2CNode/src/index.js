@@ -67,7 +67,7 @@ passport.use(new LocalStrategy(function(Email, password, done) {
 passport.use(new FacebookStrategy({
   clientID: '445442411057022',
   clientSecret: 'f0c13772909c70765206b6e636b31676',
-  callbackURL: 'http://localhost:8000/auth/login/facebook/callback',
+  callbackURL: 'https://b2ctech.herokuapp.com/auth/login/facebook/callback',
   profileFields: ['id', 'displayName', 'emails'],
   enableProof: true,
 },
@@ -97,7 +97,7 @@ function verify(accessToken, refreshToken, profile, done) {
 passport.use(new GoogleStrategy({
   clientID: '737651400824-5cp9pabdio1sh6l8e0nqmsphccdl5uek.apps.googleusercontent.com',
   clientSecret: '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',
-  callbackURL: 'http://localhost:8000/auth/login/google/callback',
+  callbackURL: 'https://b2ctech.herokuapp.com/auth/login/google/callback',
 },
 function verify(accessToken, profile, done) {
   process.nextTick(function () {

@@ -1,0 +1,65 @@
+<style>
+    .box_page_user_info{
+        padding: 20px;
+        height: 500px;
+    }
+    .title_box_page_user_info{
+        font-size: 30px;
+        line-height: 42px;
+        margin-bottom: 20px;
+        padding-top: 50px;
+    }
+    .title_son{
+        margin-bottom: 15px;
+        font-size: 20px;
+        line-height: 32px;
+    }
+    .btn_chage_pass{
+        background-color: #fff;
+        color: #000;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 20px;
+        font-weight: 600;
+        text-decoration: none;
+    }
+    .btn_chage_pass:hover{
+        background-color: rgba(130, 130, 130, 0.401);
+        color: #fff;
+    }
+</style>
+<div class="box_page_user_info m_t_mobile grid wide">
+    <h3 class="title_box_page_user_info">Trang thông tin cá nhân</h3>
+    <div class="box_info_page_info">
+        <h4 class="title_son">User name: {{session.username}}</h4>
+        <h4 class="title_son">Email: {{session.email}}</h4>
+        <h4 class="title_son">Linked account: 
+            {{#if session.fbid}}
+                {{#if session.ggid}}
+                    Google and Facebook
+                {{else}}
+                    Facebook
+                {{/if}}
+            {{else}}
+                {{#if session.ggid}}
+                    Google
+                {{else}}
+                    Not linked
+                {{/if}}
+            {{/if}}
+        </h4>
+        <h4 class="title_son">Là thành viên tại B2C: 
+            {{#if session.hashpassword}}
+            Đã là thành viên của B2C
+            {{else}}
+            Chưa là thành viên của B2C
+            {{/if}}
+        </h4>
+        
+    </div>
+    {{#if session.hashpassword}}
+        <br>
+        <a class="btn_chage_pass" href="/user/changepass" type="button" value="">Đổi mật khẩu!</a>
+        <br>
+    {{/if}}
+</div>

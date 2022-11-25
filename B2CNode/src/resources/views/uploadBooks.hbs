@@ -1,8 +1,137 @@
+<div class="grid wide">
+  <div class="container_upload_book_box">
+    <div class="upload_book_content_top">
+      <div class="box_preview">
+        <h3 class="title_upload_content_book">Tạo Truyện mới</h3>
+        <div id="preview_img_book">          
+          <div class="box_input_img">
+          {{!-- thêm ảnh truyện  --}}
+          {{!-- <input type="file" id="img_input" accept=".jpg,.png" /> --}}
+          <span id="img_input" class="select_img">Chọn ảnh</span>
+          </div>
+        </div>
+      </div>
+      <div class="name_category_book">
+        {{!-- tên truyện  --}}
+        <input type="text" class="form-input" id="book_name" placeholder="Nhập tên truyện">
+          <h4>Chọn thể loại</h4>
+        <div class="category_book">
+          <ul class="list_category_book">
+            <li class="item_category_book"><input class="category_input_book" type="checkbox"><label for="">Thể loại 1</label></li>
+            <li class="item_category_book"><input class="category_input_book" type="checkbox"><label for="">Thể loại 1</label></li>
+            <li class="item_category_book"><input class="category_input_book" type="checkbox"><label for="">Thể loại 1</label></li>
+            <li class="item_category_book"><input class="category_input_book" type="checkbox"><label for="">Thể loại 1</label></li>
+            <li class="item_category_book"><input class="category_input_book" type="checkbox"><label for="">Thể loại 1</label></li>
+            <li class="item_category_book"><input class="category_input_book" type="checkbox"><label for="">Thể loại 1</label></li>
+            <li class="item_category_book"><input class="category_input_book" type="checkbox"><label for="">Thể loại 1</label></li>
+            <li class="item_category_book"><input class="category_input_book" type="checkbox"><label for="">Thể loại 1</label></li>
+            <li class="item_category_book"><input class="category_input_book" type="checkbox"><label for="">Thể loại 1</label></li>
+            <li class="item_category_book"><input class="category_input_book" type="checkbox"><label for="">Thể loại 1</label></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="upload_book_content_bottom">
+      <h3 class="title_upload_content_book">Mô tả về sách</h3>
+      <textarea name="" id="desc_book_upload" cols="15" rows="10"></textarea>
+      <div class="box_btn">
+        <div class="box_check_vip">
+          <input type="checkbox" id="check_vip">
+          <label for="check_vip">Truyện VIP</label>
+        </div>
+        {{!-- nút tạo sách  --}}
+        <input class="btn_upload" hidden type="submit" value="Tạo sách"/>
+        <span id="btn_upload_book">Tạo sách</span>
+      </div>
+    </div>
+  </div>
+</div>
 
-<form action="/upload/photo" enctype="multipart/form-data" method="POST"> 
-  <i class="fa-solid fa-user"></i>
+<div hidden>
+  <form action="/upload/book" enctype="multipart/form-data" method="POST"> 
   <input type="text" autocomplete="off" class="form-input" id="bookname" placeholder="Book name" name="bookname"> 
-  <i class="fa-solid fa-user"></i>
-  <input type="file" name="pic" accept="image/*" />
-  <input type="submit" value="Upload Photo"/>
+  <input type="file" id="post_input_file" name="pic" accept="image/*" />
+  <input type="checkbox" name="vip" id="checkvipform">
+  <input type="text" name="decs" id="txtdescform">
+  <input type="submit" id="post_submit" value="Upload Photo"/>
 </form>
+</div>
+<script>
+  var btnUpload = document.getElementById('btn_upload_book');
+  var spanInput = document.getElementById('img_input');
+  var inputName = document.getElementById('book_name');
+  var previewImg = document.getElementById('preview_img_book');
+  var valueVip = document.getElementById('check_vip');
+  var descinput = document.getElementById('desc_book_upload');
+  var typeImg = ["jpeg", "png", "jpg", "gif"];// các type ảnh
+
+  var getName = '';
+
+  //dữ liệu chuyển sang form để gửi dữ liệu
+  var postSubmit = document.getElementById('post_submit');
+  var bookName = document.getElementById('bookname');
+  var postFile = document.getElementById('post_input_file');
+  var checkvip = document.getElementById('checkvipform');
+  var textdesc = document.getElementById('txtdescform');
+
+
+  spanInput.onclick = function(){
+    postFile.click();
+  }
+
+  postFile.addEventListener("change", function(event){
+    // const { files } = event.target;// lấy ra các sự kiển của input
+    //console.log(inputImg.value)
+    const reader = new FileReader();
+    var img_ext = postFile.value.substring(postFile.value.lastIndexOf('.')+1);
+    var checkTypeImg = typeImg.includes(img_ext);
+    reader.addEventListener("load", () => {
+        if(checkTypeImg == false){
+          // nếu không phải ảnh sẽ xóa ảnh chính và xóa giá trị ảnh nhập vào
+          previewImg.style.backgroundImage = '';
+          postFile.value = '';
+          alert("Không phải ảnh!")
+          spanInput.innerText = "Chọn ảnh";
+        }else{
+            uploadImage = reader.result;
+            previewImg.style.backgroundImage = `url(${uploadImage})`;
+            spanInput.innerText = this.files[0].name;
+        }
+        uploadImage = reader.result;
+        previewImg.style.backgroundImage = `url(${uploadImage})`;
+    })
+    reader.readAsDataURL(this.files[0]);
+  })
+  
+function upLoadFile(){
+  postSubmit.click();
+}
+
+function checkbookvip(){
+  if(valueVip.checked == true){
+      checkvip.checked = true;
+    }else{
+      checkvip.checked = false;
+    }
+}
+
+btnUpload.onclick = function(){
+  bookName.value = inputName.value;
+  textdesc.value = descinput.value;
+  if(postFile.value != ''){
+    if(bookName.value != ''){
+      if(descinput.value != ''){
+        checkbookvip();
+        upLoadFile()
+        alert('Tạo truyện thành công!')
+      }else{
+        alert('Chưa nhập mô tả sách')
+      }
+    }else{
+      alert('Chưa nhập tên truyện')
+    }
+  }else{
+    alert('vui lòng chọn ảnh bìa truyện') 
+  }
+}
+</script>

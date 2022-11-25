@@ -1,0 +1,33 @@
+/* Mobile & tablet */
+@media (max-width: 63.9375em){
+    
+}
+
+/* Table */
+@media (min-width: 46.25em) and (max-width: 63.9375em){
+    .link_item_category_top{
+        font-size: 12px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 46.1875em){
+    .category_top{
+        display: none;
+    }
+    .user_header_img_mobile{
+        display: block;
+    }
+    .hide_on_mobile{
+        display: none;
+    }
+    .info_header{
+        min-width: 100px;
+    }
+    .notification_box{
+        width: 300px;
+    }
+    .header_content{
+        justify-content: space-evenly;
+    }
+}

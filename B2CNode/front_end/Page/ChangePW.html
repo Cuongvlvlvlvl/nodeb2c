@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+	<meta charset="utf-8">	
+	<title>form Change Password</title>	
+    <link rel="stylesheet" href="../assets/css/pageLogin/style1.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    
+    <div id="wrapper">
+
+        <form id="form-login" action="" method="post" name="form" onsubmit="return validator_change()">
+            <h1 class="form-heading" >CHANGE PASSWORD</h1>
+            
+            <div class="form-group">
+                <i class="fa-solid fa-key"></i>
+                <input  type="password" class="form-input imput-conect"  placeholder="CURRENT PASSWORD" name="currentpassword">     
+                <div id="eye">
+                    <i class="fa-regular fa-eye-slash toggle"></i>
+                </div>
+            </div>
+            <div id="error_currentpassword">Vui lòng nhập mật khẩu hiện tại</div>
+   
+            <div class="form-group">
+                <i class="fa-solid fa-key"></i>
+                <input  type="password" class="form-input imput-conect"  placeholder="NEW PASSWORD" name="password">     
+                <div id="eye">
+                    <i class="fa-regular fa-eye-slash toggle"></i>
+                </div>
+            </div>
+            <div id="error_password">Vui lòng nhập mật khẩu mới</div>
+
+            <div class="form-group">
+                <i class="fa-solid fa-key"></i>
+                <input  type="password" class="form-input imput-conect" placeholder="CONFIRM NEW PASSWORD" name="confirm" >       
+                <div id="eye">
+                    <i class="fa-regular fa-eye-slash toggle"></i>
+                </div>
+            </div>
+            <div id="error_confirmpassword">vui long nhap lại mật khẩu mới</div>
+
+            <input type="submit" value="SAVE CHANGE"class="form-submit">
+
+        </form>
+    </div>
+</body>
+<script src="../assets/js/Page_Login/fun.js"></script>
+</html>

@@ -11,6 +11,8 @@ const buyHistory = new Schema({
     vnp_PayDate: {type: Number},
     vnp_OrderInfo: {type: String},
     vnp_CardType: {type: String},
+}, {
+    timestamps: true,
 });
 
 module.exports = mongoose.model('buyhistory', buyHistory);

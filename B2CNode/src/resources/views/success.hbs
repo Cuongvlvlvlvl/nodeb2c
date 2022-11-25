@@ -1,1 +1,47 @@
-<h1>{{info}} Ma:{{code}}</h1>
+<style>
+    .box_page_succes{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 60vh;
+        flex-direction: column;
+    }
+    .box_page_succes a{
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-size: 22px;
+        background-color: #fff;
+        color: #000;
+        margin-top: 30px;
+        text-decoration: none;
+    }
+    .box_page_succes a:hover{
+        background-color: #a7a7a7;
+        color: #000;
+    }
+    .title_page_succes, .span_page_succes{
+        font-size: 30px;
+        color: #3fff46;
+    }
+    .box_title_page_succes{
+        display: flex;  
+    }
+</style>
+<div class="box_page_succes">
+    <div class="box_title_page_succes">
+        <h1 class="title_page_succes">{{info}}</h1> <span style="padding-left: 10px;" class="span_page_succes">Ma:{{code}}</span>
+    </div>
+    <a href="/">Quay về trang chủ</a>
+</div>
+<script>
+    const h1 = document.getElementsByClassName('title_page_succes')[0];
+    const span = document.getElementsByClassName('span_page_succes')[0];
+    if(h1.textContent == 'Thanh toan khong thanh cong!'){
+        h1.style.color = "red";
+        span.style.color = "red";
+    }else{
+        h1.style.color = "#3fff46";
+        span.style.color = "#3fff46";
+    }
+</script>

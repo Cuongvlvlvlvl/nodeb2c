@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;700&amp;family=Roboto:wght@300;400&amp;display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="/img/favicon.png">
+    <title>Admin B2C</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header{
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 40px;
+            background-color: rgb(129, 129, 129);
+            padding: 20px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #1d2327;
+        }
+        h4{
+            font-weight: 500;
+        }
+        .h4_name_admin{
+            font-size: 16px;
+            color: #fff;
+        }
+        .info_box_admin{
+            position: relative;
+            font-size: 16px;
+            line-height: 40px;
+            color: #fff;
+        }
+        .go_back_home{
+            text-decoration: none;
+            color: #fff;
+        }
+        .go_back_home:hover{
+            color: red;
+        }
+        .app{
+            margin-top: 40px;
+            width: 100%;
+            height: calc(100vh - 40px);
+            display: flex;
+        }
+        .tab_left_app{
+            height: 100%;
+            width: 200px;
+            background-color: #1d2327; 
+        }
+        .box_container{            
+            flex: 1;
+        }
+        .list_tab_left_app{
+            width: 100%;
+            list-style: none;  
+        }
+        .item__tab_left_app{
+            text-align: center;
+            width: 100%;
+            font-size: 16px;
+            line-height: 50px;
+            height: 50px;
+            color: #fff;
+            cursor: pointer;
+        }
+        .active_left{
+            background-color: #e14d43;
+        }
+        .pane__tab_left_app{
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        .active_left_pane{
+            display: block;
+        }
+        .box_content_right{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+        .list_tab_top_app{
+            display: flex;
+            list-style: none;
+            width: 100%;
+        }
+        .item_tab_top_app,.item_tab_top_app_qltr{
+            background-color: #ccc;
+            flex: 1;
+            text-align: center;
+            align-items: center;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+            font-weight: 600;
+        }
+        .box_content_top{
+            width: 100%;
+            height: 100%;
+        }
+        .pane_tab_top_app,.pane_tab_top_app_qltr{
+            display: none;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+        }    
+        .active_top_pane{
+            display: flex;
+        }
+        .active_top{
+            display: block;
+            background-color: #fff;
+            border-bottom: 1px solid #fff;
+            color: red;
+        }
+        .list{
+            height: 100%;
+            width: 100%;
+            list-style: none;
+            overflow-y: scroll;
+        }
+        .item{
+            width: 100%;
+            padding: 10px 20px;
+            border-bottom: 1px solid #000;
+        }
+        .item:hover{
+            background-color: #bfb3ca42;
+        }
+        .box_item{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .disable_account{
+            color: red;
+        }
+        .active_account{
+            color: green;
+        }
+        .status_account{
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .status_account:hover{
+            color: #000;
+        }
+        .box_user {
+            width: 600px;
+        }
+        .user_name{
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h4 class="h4_name_admin">Xin chào, {{session.username}}</h4>
+        <div class="info_box_admin">
+        <a href="/" class="go_back_home">Quay về trang chủ</a>
+        </div>
+    </header>
+    <div class="app">
+        <div class="tab_left_app">
+            <ul class="list_tab_left_app">
+                <li class="item__tab_left_app active_left">Quản lý tài khoản</li>
+                <li class="item__tab_left_app">Quản lý truyện</li>
+            </ul>
+        </div>
+        <div class="box_container">
+            <div class="pane__tab_left_app active_left_pane">
+                <div class="box_content_right">
+                    {{!-- chọn tab  --}}
+                    <ul class="list_tab_top_app">
+                        <li class="item_tab_top_app active_top">Tât cả tài khoản người dùng</li>
+                        <li class="item_tab_top_app" onclick="location.href='/admin/post_user';">Tài khoản có quyền đăng sách</li>
+                        <li class="item_tab_top_app">Tài khoản admin</li>
+                        <li class="item_tab_top_app">Tài khoản bị disable</li>
+                    </ul>
+                    <div class="box_content_top">
+                        {{!-- tab hiện thị  --}}
+                        <div class="pane_tab_top_app active_top_pane">
+                            <ul class="list">
+                                {{#each lstUser}}
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">{{this.username}}</h4>
+                                            <h4 class="email">{{this.email}}</h4>
+                                        </div>
+                                        <h4>Ngày tạo: {{toDate this.createdAt}}</h4>
+                                        {{#if this.active}}
+                                            <a class="status_account disable_account">Disable</a>
+                                        {{else}}
+                                            <a class="status_account active_account">Active</a>
+                                        {{/if}}
+                                    </div>
+                                </li>
+                                {{/each}}
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Nguyễn Tuấn Anh Đẹp Trai</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số sách đã đăng: 100</h4>
+                                        <a class="status_account disable_account">Disable</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Nguyễn Tuấn Anh Đẹp Trai</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số sách đã đăng: 100</h4>
+                                        <a class="status_account disable_account">Disable</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Nguyễn Tuấn Anh Đẹp Trai</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số sách đã đăng: 100</h4>
+                                        <a class="status_account disable_account">Disable</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        {{!-- tab hiện thị  --}}
+                        <div class="pane_tab_top_app">
+                            <ul class="list">
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Nguyễn Tuấn Anh</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số sách đã đăng: 100</h4>
+                                        <a class="status_account active_account">Active</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Nguyễn Tuấn Anh</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số sách đã đăng: 100</h4>
+                                        <a class="status_account active_account">Active</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Nguyễn Tuấn Anh</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số sách đã đăng: 100</h4>
+                                        <a class="status_account active_account">Active</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Nguyễn Tuấn Anh Đẹp Trai</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số sách đã đăng: 100</h4>
+                                        <a class="status_account active_account">Active</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        {{!-- tab hiện thị  --}}
+                        <div class="pane_tab_top_app">
+                            <ul class="list">
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Nguyễn Tuấn Anh Đẹp Trai</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số sách đã đăng: 100</h4>
+                                        <a class="status_account active_account">Active</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Nguyễn Tuấn Anh Đẹp Trai</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số sách đã đăng: 100</h4>
+                                        <a class="status_account active_account">Active</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Nguyễn Tuấn Anh Đẹp Trai</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số sách đã đăng: 100</h4>
+                                        <a class="status_account active_account">Active</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Nguyễn Tuấn Anh Đẹp Trai</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số sách đã đăng: 100</h4>
+                                        <a class="status_account active_account">Active</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        {{!-- tab hiện thị  --}}
+                        <div class="pane_tab_top_app">
+                            <ul class="list">
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Nguyễn Tuấn Anh Đẹp Trai</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số sách đã đăng: 100</h4>
+                                        <a class="status_account active_account">Active</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Nguyễn Tuấn Anh Đẹp Trai</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số sách đã đăng: 100</h4>
+                                        <a class="status_account active_account">Active</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Nguyễn Tuấn Anh Đẹp Trai</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số sách đã đăng: 100</h4>
+                                        <a class="status_account active_account">Active</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Nguyễn Tuấn Anh Đẹp Trai</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số sách đã đăng: 100</h4>
+                                        <a class="status_account active_account">Active</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pane__tab_left_app">
+                <div class="box_content_right">
+                    <ul class="list_tab_top_app">
+                        <li class="item_tab_top_app_qltr active_top">Tất cả truyện</li>
+                        <li class="item_tab_top_app_qltr">Truyện bị disable</li>
+                    </ul>
+                    <div class="box_content_top">
+                        <div class="pane_tab_top_app_qltr active_top_pane">
+                            {{!-- tổng truyện  --}}
+                            <ul class="list">
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Tên truyện: Tên truyện</h4>
+                                            <h4 class="email">Email người đăng: nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số chap: 100</h4>
+                                        <a class="status_account disable_account">Disable</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Tên truyện: Tên truyện</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số chap: 100</h4>
+                                        <a class="status_account disable_account">Disable</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Tên truyện: Tên truyện</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số chap: 100</h4>
+                                        <a class="status_account disable_account">Disable</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Tên truyện: Tên truyện</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số chap: 100</h4>
+                                        <a class="status_account disable_account">Disable</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pane_tab_top_app_qltr">
+                            {{!-- truyện bị disable  --}}
+                            <ul class="list">
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Tên truyện abc</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số chap: 100</h4>
+                                        <a class="status_account disable_account">Disable</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Tên truyện abc</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số chap: 100</h4>
+                                        <a class="status_account disable_account">Disable</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Tên truyện abc</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số chap: 100</h4>
+                                        <a class="status_account disable_account">Disable</a>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Nguyễn Tuấn Anh Đẹp Trai</h4>
+                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
+                                        </div>
+                                        <h4>Tổng số chap: 100</h4>
+                                        <a class="status_account disable_account">Disable</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const $ = document.querySelector.bind(document);
+        const $$ = document.querySelectorAll.bind(document);
+        
+        const tabsLeft = $$('.item__tab_left_app');
+        const pansLeft = $$('.pane__tab_left_app');
+        //console.log(tabsLeft,pansLeft)
+        tabsLeft.forEach((tabLeft, index) =>{
+            const pane = pansLeft[index]
+            tabLeft.onclick = function(){
+                $('.pane__tab_left_app.active_left_pane').classList.remove('active_left_pane');
+                $('.item__tab_left_app.active_left').classList.remove('active_left');
+                this.classList.add('active_left');
+                pane.classList.add('active_left_pane');
+            }
+        })
+        //tab quan lý truyện
+        const tabsTops = $$('.item_tab_top_app');
+        const pansTop = $$('.pane_tab_top_app');
+        tabsTops.forEach((tabTop, index) =>{
+            const pane = pansTop[index]
+            tabTop.onclick = function(){
+                $('.pane_tab_top_app.active_top_pane').classList.remove('active_top_pane');
+                $('.item_tab_top_app.active_top').classList.remove('active_top');
+                this.classList.add('active_top');
+                pane.classList.add('active_top_pane');
+            }
+        })
+        //tab quan lý tài khoản
+        const tabsTopsqltrs = $$('.item_tab_top_app_qltr');
+        const pansTopqltr = $$('.pane_tab_top_app_qltr');
+        tabsTopsqltrs.forEach((tabTopqltr, index) =>{
+            const pane = pansTopqltr[index]
+            tabTopqltr.onclick = function(){
+                $('.pane_tab_top_app_qltr.active_top_pane').classList.remove('active_top_pane');
+                $('.item_tab_top_app_qltr.active_top').classList.remove('active_top');
+                this.classList.add('active_top');
+                pane.classList.add('active_top_pane');
+            }
+        })
+    </script>
+</body>
+</html>

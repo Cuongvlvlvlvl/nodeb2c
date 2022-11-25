@@ -6,11 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="/img/favicon.png">
     <title>B2C Book</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;700&amp;family=Roboto:wght@300;400&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/PageHome/base.css">
     <link rel="stylesheet" href="/css/PageHome/main.css">
     <link rel="stylesheet" href="/css/PageHome/grid.css">
     <link rel="stylesheet" href="/css/PageHome/responsive.css">
+    <link rel="stylesheet" href="/css/pageVip/vipcss.css">
+    <link rel="stylesheet" href="/css/Page_decs_book/main.css">
+    <link rel="stylesheet" href="/css/Paeg_upload_book/main.css">
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+        width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 10px;
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+        background: #555; 
+        }
+    </style>
 </head>
 <body>
     {{> header}}
@@ -19,6 +47,8 @@
 
     {{> footer}}
     <script src="/js/PageHome/notiffy.js"></script>
-    <script src="/js/PageHome/slider.js"></script>
+    <script src="/js/PageHome/follow.js"></script>
+    <script src="/js/PageHome/contact_footer.js"></script>
+    <script src="/js/PageHome/searchBook.js"></script>
 </body>
 </html>

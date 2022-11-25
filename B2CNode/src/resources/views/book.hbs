@@ -1,0 +1,60 @@
+<div class="book_container">
+    <div class="grid wide">
+        <div class="book_box">
+            <div class="book_header">
+                <div class="box_img_book_header">
+                    {{#if thisbook}}
+                        <img src="{{thisbook.pic}}">
+                    {{/if}}
+                </div>
+
+                <div class="book_header_info">
+                    <span class="book_header_info_name">Sách: {{#if thisbook}}{{thisbook.bookname}}{{/if}}</span>
+                    <ul class="list_book_header_info">
+                        <li class="item_book_header_info"><i class="fa-solid fa-user"></i>Người đăng: {{#if thisbook}}{{thisbook.author}}{{/if}}</li>
+                        <li class="item_book_header_info"><i class="fa-solid fa-eye"></i>Lượt xem: {{viewNumber}}</li>
+                        <li class="item_book_header_info"><i class="fa-solid fa-rss"></i>Tình trạng: Có {{chapCount}} chương</li>
+                    </ul>
+                    <ul class="list_category_book_header">
+                        <li class="item_category_book_header"><a href="#" class="link_item_category_book_header">Action</a></li>
+                        <li class="item_category_book_header"><a href="#" class="link_item_category_book_header">Fantasy</a></li>
+                        <li class="item_category_book_header"><a href="#" class="link_item_category_book_header">Shounen</a></li>
+                        <li class="item_category_book_header"><a href="#" class="link_item_category_book_header">Supernatural</a></li>
+                        <li class="item_category_book_header"><a href="#" class="link_item_category_book_header">Manhua</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="book_desc_header">
+                <h3 class="book_header_title"><i class="fa-solid fa-circle-info"></i>Giới Thiệu</h3>
+                {{#if thisbook}}
+                <p class="book_desc_header_p">
+                    {{thisbook.decs}}
+                </p>
+                {{/if}}
+            </div>
+            <div class="book_chapter_header">
+                <h3 class="book_header_title"><i class="fa-solid fa-database"></i>Danh sách các chương</h3>
+                <ul class="box_list_chapter">
+                    {{#each lstchap}}
+                    <li class="item_chapter" style="display: flex;">
+                        <a href="/read/{{this.chaplink}}" class="item_link_chapter" style=" width: 80%;">
+                            <span class="number_chapter">{{this.chapname}}</span>
+                            <span class="date_create_chap">Ngày đăng: {{toDate this.createdAt}}</span>                            
+                        </a>
+                        {{#if ../thisUser}}
+                            <a href="/read/{{this.chaplink}}/delete" style="flex: 1; color: red; display: block; text-decoration: none; text-align: center;" class="btn_delete_chap">Xóa chap</a>
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                    {{!-- <li class="item_chapter" >
+                        <a href="/read/{{chaplink}}" class="item_link_chapter" >
+                            <span class="number_chapter">{{chapname}}</span>
+                            <span class="date_create_chap">{{createdAt}}</span>
+                        </a>
+                        <a href="/read/{{chaplink}}/delete" style="   color: red" class="btn_delete_chap">Xóa chap</a>
+                    </li> --}}
+                </ul>
+            </div>  
+        </div>
+    </div>
+</div>

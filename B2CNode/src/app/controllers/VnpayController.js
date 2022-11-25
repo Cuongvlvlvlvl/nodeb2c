@@ -24,7 +24,7 @@ class VnpayController{
         var tmnCode = '3OKCBGET';
         var secretKey = 'DWYEYOENVIJZANMLNEDGDGDVIKPKULLE';
         var vnpUrl = 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html';
-        var returnUrl = 'http://localhost:8000/order/vnpay_return';
+        var returnUrl = 'https://nodeb2c-production.up.railway.app/order/vnpay_return';
 
         var date = new Date(Date.now());
         var dateFormat = require('dateformat');

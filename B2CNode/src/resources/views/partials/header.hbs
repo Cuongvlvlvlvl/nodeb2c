@@ -149,7 +149,7 @@
             </div>
             {{#if session}}
                 <div class="checkvip_header center hide_on_mobile"><a href="/order"><i class="fa-regular fa-gem checkvip_header_icon"></i></a></div>
-                    {{else}}
+            {{else}}
                 <div class="checkvip_header center hide_on_mobile"><a href="/auth/login"><i class="fa-regular fa-gem checkvip_header_icon"></i></a></div>
             {{/if}}
             <div class="user_header center hide_on_mobile">
@@ -190,7 +190,11 @@
                 </div>
             </div>
             <div class="user_header_mobile">
-                <img class="user_header_img_mobile" src="/img/avata.jpg">
+                {{#if session}}
+                    <img class="user_header_img_mobile" src="/img/avata.gif">
+                {{else}}
+                    <img class="user_header_img_mobile" src="/img/notlogin.png">
+                {{/if}}
                 <div class="box_notify_mobile ">
                     <ul class="box_notify_mobile_list">
                         {{#if session}}
@@ -231,7 +235,7 @@
     <div class="grid wide">
         <div class="category_top_content center">
             <ul class="list_category_top">
-                <li class="item_category_top"><a class="link_item_category_top" href="#">Trang chủ</a></li>
+                <li class="item_category_top"><a class="link_item_category_top" href="/">Trang chủ</a></li>
                 <li class="item_category_top"><a class="link_item_category_top" href="#">Thể loại</a></li>
                 <li class="item_category_top"><a class="link_item_category_top" href="#">Xếp hạng</a></li>
                 <li class="item_category_top"><a class="link_item_category_top" href="#">Tìm sách</a></li>

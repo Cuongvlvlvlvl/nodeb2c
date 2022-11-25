@@ -1,6 +1,7 @@
 const Book = require('../models/Books');
 const Chap = require('../models/Chapters');
 const View = require('../models/Views');
+const Comment = require('../models/Comment');
 
 const fs = require('fs');
 
@@ -45,7 +46,11 @@ class BooksController {
           var thisUser; 
           console.log(req.user.email == thisbook.email);
           if(req.user.email == thisbook.email) { thisUser = true; } else { thisUser = false; }
-          res.render('book', {session: req.user, thisbook: thisbook.toObject(), lstchap: chaps, viewNumber, chapCount, thisUser});
+          //them comment
+          var lstcomment = await Comment.find({bookid: thisbook._id.toString()});
+          lstcomment = lstcomment.reverse();
+          lstcomment = lstcomment.map(comment => comment.toObject());
+          res.render('book', {session: req.user, thisbook: thisbook.toObject(), lstchap: chaps, viewNumber, chapCount, thisUser, lstcomment});
         }
       }
     } else {
@@ -70,7 +75,11 @@ class BooksController {
       if(req.isAuthenticated()){
         if(req.user.email == thisbook.email) { thisUser = true; } else { thisUser = false; };
       } else { thisUser = false; };
-      res.render('book', {session: req.user, thisbook: thisbook.toObject(), lstchap: chaps, viewNumber, chapCount, thisUser});
+      //them comment
+      var lstcomment = await Comment.find({bookid: thisbook._id.toString()});
+      lstcomment = lstcomment.reverse();
+      lstcomment = lstcomment.map(comment => comment.toObject());
+      res.render('book', {session: req.user, thisbook: thisbook.toObject(), lstchap: chaps, viewNumber, chapCount, thisUser, lstcomment});
     }
 
   }
@@ -137,7 +146,11 @@ class BooksController {
             chaps = chaps.map(chap => chap.toObject());
             var thisUser;
             if(req.user.email == thisbook.email) { thisUser = true; } else { thisUser = false; }
-            res.render('book', {session: req.user, thisbook: thisbook.toObject(), lstchap: chaps, viewNumber, chapCount, thisUser});
+            //them comment
+            var lstcomment = await Comment.find({bookid: thisbook._id.toString()});
+            lstcomment = lstcomment.reverse();
+            lstcomment = lstcomment.map(comment => comment.toObject());
+            res.render('book', {session: req.user, thisbook: thisbook.toObject(), lstchap: chaps, viewNumber, chapCount, thisUser, lstcomment});
           } else {
             var previousChap = chaps[chaps.findIndex(({chapslug})=>chapslug==req.params.chap) - 1];
             res.render('chap', {session: req.user, thisbook: thisbook.toObject(), chaps: previousChap.toObject()});
@@ -154,7 +167,11 @@ class BooksController {
         if(req.isAuthenticated()){
           if(req.user.email == thisbook.email) { thisUser = true; } else { thisUser = false; };
         } else { thisUser = false; };
-        res.render('book', {session: req.user, thisbook: thisbook.toObject(), lstchap: chaps, viewNumber, chapCount, thisUser});
+        //them comment
+        var lstcomment = await Comment.find({bookid: thisbook._id.toString()});
+        lstcomment = lstcomment.reverse();
+        lstcomment = lstcomment.map(comment => comment.toObject());
+        res.render('book', {session: req.user, thisbook: thisbook.toObject(), lstchap: chaps, viewNumber, chapCount, thisUser, lstcomment});
       } else {
         var previousChap = chaps[chaps.findIndex(({chapslug})=>chapslug==req.params.chap) - 1];
         res.render('chap', {session: req.user, thisbook: thisbook.toObject(), chaps: previousChap.toObject()});
@@ -184,7 +201,11 @@ class BooksController {
             chaps = chaps.map(chap => chap.toObject());
             var thisUser;
             if(req.user.email == thisbook.email) { thisUser = true; } else { thisUser = false; }
-            res.render('book', {session: req.user, thisbook: thisbook.toObject(), lstchap: chaps, viewNumber, chapCount, thisUser});
+            //them comment
+            var lstcomment = await Comment.find({bookid: thisbook._id.toString()});
+            lstcomment = lstcomment.reverse();
+            lstcomment = lstcomment.map(comment => comment.toObject());
+            res.render('book', {session: req.user, thisbook: thisbook.toObject(), lstchap: chaps, viewNumber, chapCount, thisUser, lstcomment});
           } else {
             var nextChap = chaps[chaps.findIndex(({chapslug})=>chapslug==req.params.chap) + 1];
             res.render('chap', {session: req.user, thisbook: thisbook.toObject(), chaps: nextChap.toObject()});
@@ -201,7 +222,11 @@ class BooksController {
         if(req.isAuthenticated()){
           if(req.user.email == thisbook.email) { thisUser = true; } else { thisUser = false; };
         } else { thisUser = false; };
-        res.render('book', {session: req.user, thisbook: thisbook.toObject(), lstchap: chaps, viewNumber, chapCount, thisUser});
+        //them comment
+        var lstcomment = await Comment.find({bookid: thisbook._id.toString()});
+        lstcomment = lstcomment.reverse();
+        lstcomment = lstcomment.map(comment => comment.toObject());
+        res.render('book', {session: req.user, thisbook: thisbook.toObject(), lstchap: chaps, viewNumber, chapCount, thisUser, lstcomment});
       } else {
         var nextChap = chaps[chaps.findIndex(({chapslug})=>chapslug==req.params.chap) + 1];
         res.render('chap', {session: req.user, thisbook: thisbook.toObject(), chaps: nextChap.toObject()});
@@ -227,7 +252,11 @@ class BooksController {
         //3. trả về
         var thisUser;
         if(req.user.email == thisbook.email) { thisUser = true; } else { thisUser = false; }        
-        res.render('book', {session: req.user, thisbook: thisbook.toObject(), lstchap: chaps, viewNumber, chapCount, thisUser});
+        //them comment
+        var lstcomment = await Comment.find({bookid: thisbook._id.toString()});
+        lstcomment = lstcomment.reverse();
+        lstcomment = lstcomment.map(comment => comment.toObject());
+        res.render('book', {session: req.user, thisbook: thisbook.toObject(), lstchap: chaps, viewNumber, chapCount, thisUser, lstcomment});
         });
       } else {
         res.redirect('/');

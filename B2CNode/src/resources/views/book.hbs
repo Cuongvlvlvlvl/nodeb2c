@@ -55,6 +55,101 @@
                     </li> --}}
                 </ul>
             </div>  
+            {{#if session}}
+            <div class="row">
+                <div>
+                    <h2>Bình luận</h2>
+                </div>
+                <div>
+                    <div>
+                        <textarea name="{{session.username}}" id="Ucomment"></textarea>
+                    </div>
+                </div>
+                <div>
+                    <button name="{{thisbook._id}}" id="btnSub">Đăng lên</button>
+                </div>
+                <div>
+                    <div>
+                        <ul class="comment_box">
+                            {{#each lstcomment}}
+                            <li class="comment">
+                                <div>
+                                    <h5>{{this.username}}</h5>
+                                    <p>{{this.comment}}</p>
+                                </div>
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {{else}}
+            <h3>Đăng nhập để bình luận</h3>
+            {{/if}}
         </div>
     </div>
 </div>
+<script src="http://localhost:8000/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+
+    var textArea = document.getElementById('Ucomment');
+    var btnSub = document.querySelector('#btnSub');
+    var commentBox = document.querySelector('.comment_box');
+
+    window.onload = function(){
+        btnSub.addEventListener('click', (e) =>{
+            e.preventDefault();
+            var comment = textArea.value;
+            if(!comment){
+                return
+            }
+            postComment(comment);
+        });
+
+        function postComment(comment){
+            //edit
+            var data = {
+                username: textArea.name,
+                comment: comment,
+                bookid: btnSub.name
+            }
+            textArea.nodeValue = "";
+            appendToDom(data);
+            //boardcast
+            boardcastComment(data);
+            //sync mongodb
+            syncWithDb(data);
+        };
+
+        function appendToDom(data){
+            var lTag = document.createElement('li');
+            lTag.classList.add('comment');
+            var markUp = `
+                                    <div>
+                                        <h5>${data.username}</h5>
+                                        <p>${data.comment}</p>
+                                    </div>
+                        `
+            lTag.innerHTML = markUp;
+            commentBox.prepend(lTag);
+        };
+
+        function boardcastComment(data) {
+            socket.emit('comment',data);
+        };
+
+        socket.on('comment', (data) => {
+            appendToDom(data);
+        });
+
+        function syncWithDb(data) {
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+            fetch('/comments', { method: 'Post', body: JSON.stringify(data), headers})
+                .then(response => response.json())
+        };
+
+    }
+</script>

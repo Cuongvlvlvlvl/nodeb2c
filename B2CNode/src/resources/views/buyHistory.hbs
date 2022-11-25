@@ -16,9 +16,11 @@
 <div class="box_page_buy_history m_t_mobile grid wide">
     <h3 class="title_page_buy_history">Lịch Sử mua Vip</h3>
     {{#each lstBuy}}
-        <p class="string_page_buy_history">Số tiền: {{vnp_Amount}}</p>
-        <p class="string_page_buy_history">Ngày thanh toán: {{vnp_PayDate}}</p>
+        <p class="string_page_buy_history">Số tiền: {{vnp_Amount}}đ</p>
+        <p class="string_page_buy_history">Ngày thanh toán: {{toDate createdAt}}</p>
         <p class="string_page_buy_history">Thông tin gói Vip đăng ký: {{vnp_OrderInfo}}</p>
+        <br>
+        <br>
         {{else}}
         <p class="string_page_buy_history">Bạn chưa đăng ký gói vip nào cả</p>
     {{/each}}

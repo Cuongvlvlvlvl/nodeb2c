@@ -77,7 +77,7 @@ passport.use(new LocalStrategy(function(Email, password, done) {
 passport.use(new FacebookStrategy({
   clientID: '445442411057022',
   clientSecret: 'f0c13772909c70765206b6e636b31676',
-  callbackURL: 'https://nodeb2c-production.up.railway.app/auth/login/facebook/callback',
+  callbackURL: 'http://localhost:8000/auth/login/facebook/callback',
   profileFields: ['id', 'displayName', 'emails', 'picture'],
   enableProof: true,
 },
@@ -112,7 +112,7 @@ function verify(accessToken, refreshToken, profile, done) {
 passport.use(new GoogleStrategy({
   clientID: '737651400824-5cp9pabdio1sh6l8e0nqmsphccdl5uek.apps.googleusercontent.com',
   clientSecret: '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',
-  callbackURL: 'https://nodeb2c-production.up.railway.app/auth/login/google/callback',
+  callbackURL: 'http://localhost:8000/auth/login/google/callback',
 },
 function verify(accessToken, profile, done) {
   process.nextTick(function () {
@@ -155,5 +155,13 @@ route(app);
 //   cert: fs.readFileSync(path.join(__dirname, '/security/cert.pem'))
 // };
 
-app.listen(port, () => console.log(`Example app ${port}`));
+const server = app.listen(port, () => console.log(`Example app ${port}`));
+const io = require('socket.io')(server)
+
+io.on('connection', (socket) => {
+  socket.on('comment', (data) => {
+    socket.broadcast.emit('comment', data);
+  })
+})
+
 //https.createServer({options}, app).listen(port, () => console.log(`Example app ${port}`));

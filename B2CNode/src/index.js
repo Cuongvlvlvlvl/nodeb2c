@@ -181,7 +181,7 @@ function verify(accessToken, refreshToken, profile, done) {
 passport.use(new GoogleStrategy({
   clientID: '737651400824-5cp9pabdio1sh6l8e0nqmsphccdl5uek.apps.googleusercontent.com',
   clientSecret: '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',
-  callbackURL: 'https://nodeb2c-production.up.railway.app/auth/login/google/callback',
+  callbackURL: 'https://b2cbook.up.railway.app/auth/login/google/callback',
 },
 function verify(accessToken, profile, done) {
   process.nextTick(function () {

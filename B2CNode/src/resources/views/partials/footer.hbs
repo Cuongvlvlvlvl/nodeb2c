@@ -51,3 +51,35 @@
 
     </div>
 </div>
+<script src="https://nodeb2c-production.up.railway.app/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+
+    var notifyBox = document.getElementsByClassName('list_notify_header')[0];
+
+    socket.on('notify', (notify) => {
+        appendToDom(notify);
+    });
+
+    function appendToDom(notify) {
+        var lTag = document.createElement('li');
+        lTag.classList.add('item_notify_header');
+        var markUp = `
+                        <li class="item_notify_header item_notify_header_viewed">
+                            <a href="${notify.booklink}" class="link_item_notify_header">
+                                <img class="img_item_notify_header" src="${notify.bookImg}" alt="">
+                                <div class="content_item_notify_header">
+                                    <h4 class="namebook_content_item_notify_header">${notify.bookname}</h4>
+                                    <div class="status_box">
+                                        <span class="status_title">Trạng thái:</span>
+                                        <span class="status_disc">Sách vừa ra</span>
+                                        <span class="status_chap">${notify.chapname}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                  `
+        lTag.innerHTML = markUp;
+        notifyBox.append(lTag);
+    }
+</script>

@@ -31,7 +31,7 @@ const toggle = document.getElementsByClassName("toggle"),
       })
 
 
-var user= document.forms['form']['user'];
+var username= document.forms['form']['username'];
 var password= document.forms['form']['password'];
 var email= document.forms['form']['email'];
 var confirmpassword= document.forms['form']['confirm'];
@@ -43,7 +43,7 @@ var error_email= document.getElementById('error_email');
 var error_confirmpassword= document.getElementById('error_confirmpassword');
 var error_currentpassword= document.getElementById('error_currentpassword');
 
-user.addEventListener('textInput',user_veryfy);
+username.addEventListener('textInput',user_veryfy);
 password.addEventListener('textInput',pass_veryfy);
 email.addEventListener('textInput',email_veryfy);
 confirmpassword.addEventListener('textInput',confirm_veryfy);
@@ -56,9 +56,9 @@ function validator_register(){
       email.focus();
       return false;      
     }
-    if(user.value.length <9){
+    if(username.value.length <9){
       error_user.style.display="block";
-      user.focus();
+      username.focus();
       return false;      
     }
     if(password.value.length <6){
@@ -75,9 +75,9 @@ function validator_register(){
 }
 function validator_login(){
 
-  if(user.value.length <9){
+  if(username.value.length <9){
     error_user.style.display="block";
-    user.focus();
+    username.focus();
     return false;      
   }
   if(password.value.length <6){
@@ -114,7 +114,7 @@ function validator_change(){
 }
 
 function user_veryfy(){
-  if(user.value.length >=8){
+  if(username.value.length >=8){
     error_user.style.display="none";   
     return true;
   }

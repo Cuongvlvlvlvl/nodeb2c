@@ -24,126 +24,23 @@
                 <div class="notification_box js_fun_show_hide">
                     <div class="header_notify">
                         <h3 class="title_notification_box">Thông báo</h3> 
-                        <span class="see_all_notify">Mark as read all</span>
                     </div>
                     <ul class="list_notify_header">
+                        {{#each notify}}
                         <li class="item_notify_header">
-                            <a href="#" class="link_item_notify_header">
-                                <img class="img_item_notify_header" src="/img/slider/1.jpg" alt="">
+                            <a href="{{this.booklink}}" class="link_item_notify_header">
+                                <img class="img_item_notify_header" src="{{this.bookImg}}" alt="">
                                 <div class="content_item_notify_header">
-                                    <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
+                                    <h4 class="namebook_content_item_notify_header">Sách: {{this.bookname}}</h4>
                                     <div class="status_box">
                                         <span class="status_title">Trạng thái:</span>
-                                        <span class="status_disc">Sách vừa ra</span>
-                                        <span class="status_chap">Chap 3</span>
+                                        <span class="status_disc">Chap vừa ra</span>
+                                        <span class="status_chap">{{this.chapname}}</span>
                                     </div>
                                 </div>
                             </a>
                         </li>
-                        <li class="item_notify_header">
-                            <a href="#" class="link_item_notify_header">
-                                <img class="img_item_notify_header" src="/img/slider/2.jpg" alt="">
-                                <div class="content_item_notify_header">
-                                    <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                    <div class="status_box">
-                                        <span class="status_title">Trạng thái:</span>
-                                        <span class="status_disc">Sách vừa ra</span>
-                                        <span class="status_chap">Chap 3</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="item_notify_header">
-                            <a href="#" class="link_item_notify_header">
-                                <img class="img_item_notify_header" src="/img/slider/3.jpg" alt="">
-                                <div class="content_item_notify_header">
-                                    <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                    <div class="status_box">
-                                        <span class="status_title">Trạng thái:</span>
-                                        <span class="status_disc">Sách vừa ra</span>
-                                        <span class="status_chap">Chap 3</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="item_notify_header">
-                            <a href="#" class="link_item_notify_header">
-                                <img class="img_item_notify_header" src="/img/slider/4.jpg" alt="">
-                                <div class="content_item_notify_header">
-                                    <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                    <div class="status_box">
-                                        <span class="status_title">Trạng thái:</span>
-                                        <span class="status_disc">Sách vừa ra</span>
-                                        <span class="status_chap">Chap 3</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="item_notify_header">
-                            <a href="#" class="link_item_notify_header">
-                                <img class="img_item_notify_header" src="/img/slider/5.jpg" alt="">
-                                <div class="content_item_notify_header">
-                                    <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                    <div class="status_box">
-                                        <span class="status_title">Trạng thái:</span>
-                                        <span class="status_disc">Sách vừa ra</span>
-                                        <span class="status_chap">Chap 3</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="item_notify_header">
-                            <a href="#" class="link_item_notify_header">
-                                <img class="img_item_notify_header" src="/img/slider/6.jpg" alt="">
-                                <div class="content_item_notify_header">
-                                    <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                    <div class="status_box">
-                                        <span class="status_title">Trạng thái:</span>
-                                        <span class="status_disc">Sách vừa ra</span>
-                                        <span class="status_chap">Chap 3</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="item_notify_header item_notify_header_viewed">
-                            <a href="#" class="link_item_notify_header">
-                                <img class="img_item_notify_header" src="/img/slider/3.jpg" alt="">
-                                <div class="content_item_notify_header">
-                                    <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                    <div class="status_box">
-                                        <span class="status_title">Trạng thái:</span>
-                                        <span class="status_disc">Sách vừa ra</span>
-                                        <span class="status_chap">Chap 3</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="item_notify_header item_notify_header_viewed">
-                            <a href="#" class="link_item_notify_header">
-                                <img class="img_item_notify_header" src="/img/slider/2.jpg" alt="">
-                                <div class="content_item_notify_header">
-                                    <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                    <div class="status_box">
-                                        <span class="status_title">Trạng thái:</span>
-                                        <span class="status_disc">Sách vừa ra</span>
-                                        <span class="status_chap">Chap 3</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="item_notify_header item_notify_header_viewed">
-                            <a href="#" class="link_item_notify_header">
-                                <img class="img_item_notify_header" src="/img/slider/1.jpg" alt="">
-                                <div class="content_item_notify_header">
-                                    <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                    <div class="status_box">
-                                        <span class="status_title">Trạng thái:</span>
-                                        <span class="status_disc">Sách vừa ra</span>
-                                        <span class="status_chap">Chap 3</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
+                        {{/each}}
                     </ul>
                 </div>
             </div>

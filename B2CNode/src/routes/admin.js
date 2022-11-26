@@ -13,4 +13,26 @@ router.get('/admin_user', ctl.adminn);
 
 router.get('/disable_user', ctl.disable);
 
+router.get('/:tab/:user/enable_user', ctl.enableAccount);
+
+router.get('/:tab/:user/disable_user', ctl.disableAccount);
+
+router.get('/:tab/:user/enable_post', ctl.enablePost);
+
+router.get('/:tab/:user/disable_post', ctl.disablePost);
+
+router.get('/:tab/:user/enable_admin', ctl.enableAdmin);
+
+router.get('/:tab/:user/disable_admin', ctl.disableAdmin);
+
+router.get('/all_book', ctl.allBook);
+
+router.get('/vip_book', ctl.vipBook);
+
+router.get('/disable_book', ctl.disabledBook);
+
+router.get('/:tab/:book/enable_book', ctl.enableBook);
+
+router.get('/:tab/:book/disable_book', ctl.disableBook);
+
 module.exports = router;

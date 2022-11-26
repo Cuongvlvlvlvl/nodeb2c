@@ -16,6 +16,7 @@ const FacebookStrategy = require('passport-facebook');
 const User = require('./app/models/User');
 
 const dateFormat = require('dateformat');
+const moment = require('moment');
 
 //add file dinh tuyen
 const route = require('./routes');
@@ -51,7 +52,76 @@ app.set('views', path.join(__dirname,'resources/views'));
 const hbs = require('handlebars');
 hbs.registerHelper('toDate', function(value) {
   return dateFormat(value, 'dd/mm/yyyy');
-})
+});
+
+hbs.registerHelper('toFromNow', function(value) {
+  return moment(value).fromNow();
+});
+
+hbs.registerHelper('changeSpan', function(value) {
+  if(value == 'post_user')
+    return 'Quyền đăng: '
+  else if(value == 'admin_user')
+    return 'Quyền admin: '
+  else
+    return 'Trạng thái: '
+});
+
+hbs.registerHelper('enableRule', function(value) {
+  switch(value){
+    
+    case 'post_user': {return 'enable_post'}
+
+    case 'admin_user': {return 'enable_admin'}
+
+    default: {return 'enable_user'}
+
+  }
+});
+
+hbs.registerHelper('disableRule', function(value) {
+  switch(value){
+    
+    case 'post_user': {return 'disable_post'}
+
+    case 'admin_user': {return 'disable_admin'}
+
+    default: {return 'disable_user'}
+
+  }
+});
+
+hbs.registerHelper('checkType', function(val1, val2) {
+  switch(val1){
+    
+    case 'post_user': {
+      if(val2.uploader){
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    case 'admin_user': {
+      if(val2.admin){
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    default: {
+      if(val2.active){
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+  }
+});
+
+
 
 //xac thuc dang nhap user-password
 passport.use(new LocalStrategy(function(Email, password, done) {
@@ -83,7 +153,6 @@ passport.use(new FacebookStrategy({
 },
 function verify(accessToken, refreshToken, profile, done) {
   process.nextTick(function () {
-    console.log(profile);
     User.findOne({ $or:[{email: (profile.emails && profile.emails[0]) ? profile.emails[0].value : '' }, {fbid: profile.id}] }, function(err, user) {
       if (err) { return done(err); }
       if (!user) { 
@@ -161,6 +230,9 @@ const io = require('socket.io')(server)
 io.on('connection', (socket) => {
   socket.on('comment', (data) => {
     socket.broadcast.emit('comment', data);
+  })
+  socket.on('notify', (data) => {
+    socket.broadcast.emit('notify', data);
   })
 })
 

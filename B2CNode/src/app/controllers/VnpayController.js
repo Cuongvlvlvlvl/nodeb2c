@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const buyHistory = require('../models/BuyHistory');
+const Notify = require('../models/Notify');
 var mysign = new String();
 var idcheck = new String();
 
@@ -90,11 +91,17 @@ class VnpayController{
         var signData = querystring.stringify(vnp_Params, { encode: false });
         var crypto = require("crypto");     
         var hmac = crypto.createHmac("sha512", secretKey);
-        var signed = hmac.update(Buffer.from(signData, 'utf-8')).digest("hex");     
+        var signed = hmac.update(Buffer.from(signData, 'utf-8')).digest("hex");   
+        
+        
+        //load 10 thông báo
+        var notify = await (await Notify.find({})).reverse();
+        notify = notify.slice(0, 10).map( ele => ele.toObject());
     
         if(secureHash === signed){
             if(vnp_Params['vnp_ResponseCode'] === '00'){
                 if(idcheck === mysign){
+                    //lưu db
                     const fromQuery = req.query;
                     const usersecc = req.user;
                     fromQuery.username = usersecc.username;
@@ -142,13 +149,14 @@ class VnpayController{
                     user.save();
                     mysign = null;
 
-                    res.render('success', {session:req.user, code: vnp_Params['vnp_ResponseCode'], info: 'Thanh toan thanh cong!'});
+                    
+                    res.render('success', {notify, session:req.user, code: vnp_Params['vnp_ResponseCode'], info: 'Thanh toan thanh cong!'});
                 }
             }
             else
-                res.render('success', {session: req.user, code: '97', info: 'Thanh toan khong thanh cong!'});
+                res.render('success', {notify, session: req.user, code: '97', info: 'Thanh toan khong thanh cong!'});
         } else{
-            res.render('success', {session: req.user, code: '97', info: 'Loi khong xac dinh!'});
+            res.render('success', {notify, session: req.user, code: '97', info: 'Loi khong xac dinh!'});
         }
     };
     

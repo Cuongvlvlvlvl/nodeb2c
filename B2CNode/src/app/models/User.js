@@ -11,7 +11,6 @@ const user = new Schema({
     fbid: {type: String, default: null},
     vipexpire: {type: Date, default: Date.now()},
     active: {type: Boolean, default: true},
-    picUrl: {type: String, default: null},
     //change to default user role on default
     uploader: {type: Boolean, default: false},
     admin: {type: Boolean, default: false}

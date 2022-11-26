@@ -56,40 +56,38 @@
                 </ul>
             </div>  
             {{#if session}}
-            <div class="row">
-                <div>
-                    <h2>Bình luận</h2>
+            <div class="box-cmt" style="padding: 20px 0;">
+                <h2 style="font-size: 25px; line-height: 32px;">Bình luận</h2>
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; padding: 40px 0;">
+                    <textarea placeholder="Hãy nhập bình luận một các có học thức" style="padding: 15px; width: 100%; font-size: 18px; line-height: 25px; background-color: #fff; outline: none;" name="{{session.username}}" id="Ucomment" rows="5"></textarea>
                 </div>
-                <div>
-                    <div>
-                        <textarea name="{{session.username}}" id="Ucomment"></textarea>
-                    </div>
-                </div>
-                <div>
-                    <button name="{{thisbook._id}}" id="btnSub">Đăng lên</button>
-                </div>
-                <div>
-                    <div>
-                        <ul class="comment_box">
-                            {{#each lstcomment}}
-                            <li class="comment">
-                                <div>
-                                    <h5>{{this.username}}</h5>
-                                    <p>{{this.comment}}</p>
+                    <button style="padding: 10px 30px; border-radius: 10px; font-size: 18px;" name="{{thisbook._id}}" id="btnSub">Đăng lên</button>
+                <div style="padding: 20px 0;">
+                    <ul class="comment_box" style="list-style: none;">
+                        {{#each lstcomment}}
+                        <li class="comment" style="background-color: #505050; padding: 10px; border-radius: 10px; margin: 10px 0;">
+                            <div>
+                                <div style="display: flex; padding: 10px; align-items: center; justify-content: space-between;">
+                                    <h5 style="font-size: 18px;">{{this.username}}</h5>
+                                    <p>{{toFromNow this.createdAt}}</p>
                                 </div>
-                            </li>
-                            {{/each}}
-                        </ul>
-                    </div>
+                                <p style="font-size: 18px; line-height: 25px; padding: 0 10px; padding-top: 15px; border-top: 1px solid #fff">{{this.comment}}</p>
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ul>
                 </div>
             </div>
             {{else}}
-            <h3>Đăng nhập để bình luận</h3>
+            <div class="box-cmt" style="padding: 20px 0;">
+                <h2 style="font-size: 25px; line-height: 32px;">Đăng nhập để bình luận</h2>
+            </div>
             {{/if}}
         </div>
     </div>
 </div>
-<script src="http://localhost:8000/socket.io/socket.io.js"></script>
+<script src="https://nodeb2c-production.up.railway.app/socket.io/socket.io.js"></script>
+<script type = "text/JavaScript" src=" https://MomentJS.com/downloads/moment.js"></script>
 <script>
     var socket = io();
 
@@ -104,6 +102,7 @@
             if(!comment){
                 return
             }
+            textArea.value = '';
             postComment(comment);
         });
 
@@ -112,7 +111,8 @@
             var data = {
                 username: textArea.name,
                 comment: comment,
-                bookid: btnSub.name
+                bookid: btnSub.name,
+                timeFromNow: moment().fromNow()
             }
             textArea.nodeValue = "";
             appendToDom(data);
@@ -125,11 +125,17 @@
         function appendToDom(data){
             var lTag = document.createElement('li');
             lTag.classList.add('comment');
-            var markUp = `
-                                    <div>
-                                        <h5>${data.username}</h5>
-                                        <p>${data.comment}</p>
+            var markUp = `                            
+                            
+                            <li class="comment" style="background-color: #505050; padding: 10px; border-radius: 10px; margin: 10px 0;">
+                                <div>
+                                    <div style="display: flex; padding: 10px; align-items: center; justify-content: space-between;">
+                                        <h5 style="font-size: 18px;">${data.username}</h5>
+                                        <p>${data.timeFromNow}</p>
                                     </div>
+                                    <p style="font-size: 18px; line-height: 25px; padding: 0 10px; padding-top: 15px; border-top: 1px solid #fff">${data.comment}</p>
+                                </div>
+                            </li>
                         `
             lTag.innerHTML = markUp;
             commentBox.prepend(lTag);

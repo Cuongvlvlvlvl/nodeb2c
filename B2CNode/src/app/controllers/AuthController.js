@@ -80,9 +80,9 @@ class AuthController {
         if( !(codestr === rndnum) ) { return res.redirect('/auth/confirm') };
         sended = false;
         rndnum = new String();
-        if( !(userStore.password === userStore.confirm) ) { return res.redirect('/auth/signup?passErr=true') };
+        if( !(userStore.currentpassword === userStore.confirm) ) { return res.redirect('/auth/signup?passErr=true') };
         const userForm = userStore;
-        crypto.pbkdf2(userStore.password, 'cuongggg', 100000, 32, 'sha256', function(err, hashedPassword) {
+        crypto.pbkdf2(userStore.currentpassword, 'cuongggg', 100000, 32, 'sha256', function(err, hashedPassword) {
             if (err) { return next(err); }
             userForm.hashpassword = hashedPassword.toString('hex');
                 process.nextTick(function () {

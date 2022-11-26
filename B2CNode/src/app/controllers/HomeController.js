@@ -1,9 +1,15 @@
-const Book = require('../models/Books')
+const Book = require('../models/Books');
+const Notify = require('../models/Notify');
 
 class HomeController {
 
   //[get] -> home
   async index(req, res) { 
+
+    //load 10 thông báo
+    var notify = await Notify.find({});
+    var notifyCount = await Notify.find({}).count();
+    notify = notify.slice(notifyCount-10, notifyCount).map( ele => ele.toObject());
 
     var books = await Book.find({active: true});
     const numbooks = Object.keys(books).length;
@@ -45,7 +51,7 @@ class HomeController {
     } else { expire = false; }
 
     lstbook = lstbook.map(book => book.toObject());
-    res.render('home', {session: req.user, lstbook, lastpage, pagenow, books, top5book, expire}); 
+    res.render('home', {notify, session: req.user, lstbook, lastpage, pagenow, books, top5book, expire}); 
   }
 
   sessionapi(req, res) {

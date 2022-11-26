@@ -451,7 +451,7 @@ i.fa-solid.fa-circle.notification_header_viewed{
     /* padding: 0 15px; */
     list-style: none;
     /* padding: 0 10px; */
-    height: 420px;
+    max-height: 420px;
     overflow: auto;
     display: flex;
     flex-direction: column-reverse;
@@ -463,7 +463,7 @@ i.fa-solid.fa-circle.notification_header_viewed{
 }
 
 .item_notify_header{
-    
+    border-top: 1px solid #fff;
 }
 
 .item_notify_header:hover{

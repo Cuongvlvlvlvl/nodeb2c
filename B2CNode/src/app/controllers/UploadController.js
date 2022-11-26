@@ -1,12 +1,19 @@
 const book = require('../models/Books');
 const chapter = require('../models/Chapters');
+const Notify = require('../models/Notify');
 
 class UploadController {
   //[get] -> home
-  index(req, res) { 
+  async index(req, res) { 
     if (req.isAuthenticated()) { 
       if(req.user.uploader || req.user.admin){
-        res.render('uploadBooks', {session: req.user});  
+
+        //load 10 thông báo
+        var notify = await Notify.find({});
+        var notifyCount = await Notify.find({}).count();
+        notify = notify.slice(notifyCount-10, notifyCount).map( ele => ele.toObject());
+
+        res.render('uploadBooks', {notify, session: req.user});  
       } else {
         res.redirect('/'); 
       }
@@ -14,10 +21,16 @@ class UploadController {
     res.redirect('/auth/login');
   }
 
-  photo(req, res) {
+  async photo(req, res) {
     if (req.isAuthenticated()) {   
       if(req.user.uploader || req.user.admin){
-        res.render('uploadBooks', {session: req.user, notFirstTime: false});  
+
+        //load 10 thông báo
+        var notify = await Notify.find({});
+        var notifyCount = await Notify.find({}).count();
+        notify = notify.slice(notifyCount-10, notifyCount).map( ele => ele.toObject());
+
+        res.render('uploadBooks', {notify, session: req.user, notFirstTime: false});  
       } else {
         res.redirect('/'); 
       }  
@@ -26,33 +39,48 @@ class UploadController {
   }
 
   async photoup(req, res) {
-    //xử lí add thông tin vào db ở đây
-    const formData = req.body;
-    console.log(formData);
-    //xoá khoảng trắng và dấu trong bookname và file - xong
-    const books = await book.find({}).count() + 1;
-    formData.pic = '/b2c_data/' + "B2C" + '_' + books + "/" + req.user._id.toString() + removeVietnameseTones(req.file.originalname);
-    formData.author = req.user.username;
-    formData.email = req.user.email;
-    formData.slug = "B2C" + '_' + books;
-    if(req.body.vip == 'on'){
-      formData.vip = true;
-    } else {
-      formData.vip = false;
-    }
-    const newBook = new book(formData);   
-    // const cater = ["saubanhancut", "khong an cut dau", "ănc  o m", "more"];
-    // newBook.categories = cater;
-    newBook.save();
-    await sleep(100);
-    res.redirect('/upload/' + newBook.slug + '/addchap');
+    if (req.isAuthenticated()) {   
+
+      //load 10 thông báo
+      var notify = await Notify.find({});
+      var notifyCount = await Notify.find({}).count();
+      notify = notify.slice(notifyCount-10, notifyCount).map( ele => ele.toObject());
+
+      if(req.body.bookname == "" || req.body.bookname == null) { res.render('uploadBooks', {notify, session: req.user, notFirstTime: true}); }
+      else {
+        const formData = req.body;
+        //xoá khoảng trắng và dấu trong bookname và file - xong
+        const books = await book.find({}).count() + 1;
+        formData.pic = '/b2c_data/' + "B2C" + '_' + books + "/" + req.user._id.toString() + removeVietnameseTones(req.file.originalname);
+        formData.author = req.user.username;
+        formData.email = req.user.email;
+        formData.slug = "B2C" + '_' + books;
+        if(req.body.vip == 'on'){
+          formData.vip = true;
+        } else {
+          formData.vip = false;
+        }
+        const newBook = new book(formData);   
+        // const cater = ["saubanhancut", "khong an cut dau", "ănc  o m", "more"];
+        // newBook.categories = cater;
+        newBook.save();
+        await sleep(100);
+        res.redirect('/upload/' + newBook.slug + '/addchap');
+      }
+    } else res.redirect('/auth/login');
   }
 
   async chap(req, res) {
     if (req.isAuthenticated()) {     
       var thisbook = await book.findOne({slug: req.params.bookslug, active: true});
       if(thisbook.email == req.user.email) {
-        res.render('uploadChaps', {name: req.params.bookslug, session: req.user});  
+
+        //load 10 thông báo
+        var notify = await Notify.find({});
+        var notifyCount = await Notify.find({}).count();
+        notify = notify.slice(notifyCount-10, notifyCount).map( ele => ele.toObject());
+
+        res.render('uploadChaps', {notify, link: req.params.bookslug, name: thisbook.bookname, session: req.user, pic: thisbook.pic});  
       } else {
         res.redirect('/');
       }
@@ -61,35 +89,42 @@ class UploadController {
     }
   }
 
-  chapup(req, res) {
-    //xử lí add thông tin vào db ở đây
-    book.findOne({slug: req.params.bookslug, active: true}, async function(err, book) {
-      if(!book) { res.redirect('/?ko-co-sach'); } 
-      else 
-      {
-        if(req.body.chapname == "delete") { res.render ('uploadChaps',{name: req.params.bookslug, session: req.user, err: true, notFirstTime: true})}
-        else
+  async chapup(req, res) {
+    if (req.isAuthenticated()) {  
+      //load 10 thông báo
+      var notify = await Notify.find({});
+      var notifyCount = await Notify.find({}).count();
+      notify = notify.slice(notifyCount-10, notifyCount).map( ele => ele.toObject());
+
+      //xử lí add thông tin vào db ở đây
+      book.findOne({slug: req.params.bookslug, active: true}, async function(err, book) {
+        if(!book) { res.redirect('/?ko-co-sach'); } 
+        else 
         {
-          var dbChap = await chapter.findOne({bookid: book._id.toString() ,chapname: req.body.chapname})
-          if(dbChap) { res.render ('uploadChaps',{name: req.params.bookslug, session: req.user, err: true, notFirstTime: true})}
+          if(req.body.chapname == "delete" || req.body.chapname == "" || req.body.chapname == null) { res.render ('uploadChaps',{notify, link: req.params.bookslug, name: book.bookname, session: req.user, err: true, notFirstTime: true, pic: book.pic})}
           else
           {
-            const formData = req.body;
-            formData.bookid = book._id.toString();
-            formData.chaplink = book.slug + "/" + removeVietnameseTones(req.body.chapname);
-            formData.chapslug = removeVietnameseTones(req.body.chapname);
-            const newChap = new chapter(formData);
-            //link xong
-            req.files.forEach(element  =>{
-              var data = new String( formData.chaplink + "/" + removeVietnameseTones(element.originalname));
-              newChap.imglinks.push(data);
-            });
-            newChap.save();
-            res.render ('uploadChaps',{name: req.params.bookslug, session: req.user, err: false, notFirstTime: true});
+            var dbChap = await chapter.findOne({bookid: book._id.toString() ,chapname: req.body.chapname})
+            if(dbChap) { res.render ('uploadChaps',{notify, link: req.params.bookslug, name: book.bookname, session: req.user, err: true, notFirstTime: true, pic: book.pic})}
+            else
+            {
+              const formData = req.body;
+              formData.bookid = book._id.toString();
+              formData.chaplink = book.slug + "/" + removeVietnameseTones(req.body.chapname);
+              formData.chapslug = removeVietnameseTones(req.body.chapname);
+              const newChap = new chapter(formData);
+              //link xong
+              req.files.forEach(element  =>{
+                var data = new String( formData.chaplink + "/" + removeVietnameseTones(element.originalname));
+                newChap.imglinks.push(data);
+              });
+              newChap.save();
+              res.render ('uploadChaps',{notify, link: req.params.bookslug, name: book.bookname, session: req.user, err: false, notFirstTime: true, pic: book.pic});
+            }
           }
         }
-      }
-    })
+      })
+    } else res.redirect('/auth/login');
   }
 }
 

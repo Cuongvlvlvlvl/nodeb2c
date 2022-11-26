@@ -14,7 +14,7 @@ searchInput.addEventListener("input", e => {
     })
 })
 
-fetch("http://localhost:8000/read")
+fetch("https://nodeb2c-production.up.railway.app/read")
     .then(res => res.json())
     .then(data => {
         books = data.map(book => {

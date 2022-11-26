@@ -6,7 +6,8 @@ const adminload = require('./admin');
 const read = require('./read');
 const user = require('./user');
 
-const Comment = require('../app/models/Comment')
+const Comment = require('../app/models/Comment');
+const Notify = require('../app/models/Notify');
 
 function route(app) {
   app.use('/', newRouter);
@@ -31,7 +32,17 @@ function route(app) {
       bookid: req.body.bookid
     })
     comment.save();
-  })
+  });
+
+  app.post('/notify', (req, res) => {
+    const notify = new Notify({
+      chapname: req.body.chapname,
+      bookname: req.body.bookname,
+      bookImg: req.body.bookImg,
+      booklink: req.body.booklink
+    })
+    notify.save();
+  });
 
 }
 

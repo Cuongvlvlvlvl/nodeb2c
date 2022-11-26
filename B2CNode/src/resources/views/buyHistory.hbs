@@ -12,16 +12,23 @@
         font-size: 22px;
         line-height: 32px;
     }
+    .mbt{
+        padding-bottom: 50px;
+        border-bottom: 1px solid #fff;
+    }
+    .mt{
+        padding-top: 30px;
+    }
 </style>
 <div class="box_page_buy_history m_t_mobile grid wide">
     <h3 class="title_page_buy_history">Lịch Sử mua Vip</h3>
     {{#each lstBuy}}
-        <p class="string_page_buy_history">Số tiền: {{vnp_Amount}}đ</p>
-        <p class="string_page_buy_history">Ngày thanh toán: {{toDate createdAt}}</p>
-        <p class="string_page_buy_history">Thông tin gói Vip đăng ký: {{vnp_OrderInfo}}</p>
-        <br>
-        <br>
-        {{else}}
-        <p class="string_page_buy_history">Bạn chưa đăng ký gói vip nào cả</p>
+        <div>
+            <p class="string_page_buy_history mt">Số tiền: {{vnp_Amount}}đ</p>
+            <p class="string_page_buy_history">Ngày thanh toán: {{toDate createdAt}}</p>
+            <p class="string_page_buy_history mbt">Thông tin gói Vip đăng ký: {{vnp_OrderInfo}}</p>
+            {{else}}
+            <p class="string_page_buy_history">Bạn chưa đăng ký gói vip nào cả</p>
+        </div>
     {{/each}}
 </div>

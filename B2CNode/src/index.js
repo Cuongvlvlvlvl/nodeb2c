@@ -147,7 +147,7 @@ passport.use(new LocalStrategy(function(Email, password, done) {
 passport.use(new FacebookStrategy({
   clientID: '445442411057022',
   clientSecret: 'f0c13772909c70765206b6e636b31676',
-  callbackURL: 'https://nodeb2c-production.up.railway.app/auth/login/facebook/callback',
+  callbackURL: 'https://b2cbook.up.railway.app/auth/login/facebook/callback',
   profileFields: ['id', 'displayName', 'emails', 'picture'],
   enableProof: true,
 },

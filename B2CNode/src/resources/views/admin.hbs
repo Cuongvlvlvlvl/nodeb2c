@@ -69,10 +69,17 @@
             font-size: 16px;
             line-height: 50px;
             height: 50px;
+            border-bottom: 1px solid #fff;
+        }
+        .item__tab_left_app a{
             color: #fff;
             cursor: pointer;
+            height: 100%;
+            width: 100%;
+            display: block;
+            text-decoration: none;
         }
-        .active_left{
+        .{{changeMain tab}},.active_left{
             background-color: #e14d43;
         }
         .pane__tab_left_app{
@@ -80,7 +87,8 @@
             width: 100%;
             height: 100%;
         }
-        .active_left_pane{
+        .account_user_active_pane,
+        .book_book_active_pane{
             display: block;
         }
         .box_content_right{
@@ -127,7 +135,7 @@
         .active_top_pane{
             display: flex;
         }
-        .{{tab}}{
+        .{{tab}},.active_top{
             display: block;
             background-color: #fff;
             border-bottom: 1px solid #fff;
@@ -187,23 +195,23 @@
     <div class="app">
         <div class="tab_left_app">
             <ul class="list_tab_left_app">
-                <li class="item__tab_left_app active_left">Quản lý tài khoản</li>
-                <li class="item__tab_left_app">Quản lý truyện</li>
+                <li class="item__tab_left_app user_active"><a href="/admin/all_user">Quản lý tài khoản</a></li>
+                <li class="item__tab_left_app book_active" ><a href="/admin/all_book">Quản lý truyện</a></li>
             </ul>
         </div>
         <div class="box_container">
             {{!-- tab quản lý tài khoản --}}
-            <div class="pane__tab_left_app active_left_pane">
+            <div class="pane__tab_left_app account_{{changeMain tab}}_pane">
                 <div class="box_content_right">
-                    {{!-- chọn tab  --}}
+                    {{!-- chọn tab lý tài khoản --}}
                     <ul class="list_tab_top_app">
-                        <li class="item_tab_top_app active_top all_user"><a href="/admin/all_user">Tât cả tài khoản người dùng</a></li>
-                        <li class="item_tab_top_app post_user"><a href="/admin/post_user">Tài khoản có quyền đăng sách</a></li>
-                        <li class="item_tab_top_app admin_user"><a href="/admin/admin_user">Tài khoản admin</a></li>
+                        <li class="item_tab_top_app all_user"><a href="/admin/all_user">Tât cả tài khoản người dùng</a></li>
+                        <li class="item_tab_top_app post_user"><a href="/admin/post_user">Quản lí quyền đăng sách</a></li>
+                        <li class="item_tab_top_app admin_user"><a href="/admin/admin_user">Quản lí quyền admin</a></li>
                         <li class="item_tab_top_app disable_user"><a href="/admin/disable_user">Tài khoản bị disable</a></li>
                     </ul>
                     <div class="box_content_top">
-                        {{!-- tab hiện thị tất cả người dùng--}}
+                        {{!-- tab hiện thị --}}
                         <div class="pane_tab_top_app active_top_pane">
                             <ul class="list">
                                 {{#each lstUser}}
@@ -228,101 +236,39 @@
                 </div>
             </div>
             {{!-- tab quản lý truyện --}}
-            <div class="pane__tab_left_app">
+            <div class="pane__tab_left_app book_{{changeMain tab}}_pane">
                 <div class="box_content_right">
                     <ul class="list_tab_top_app">
-                        <li class="item_tab_top_app_qltr active_top">Tất cả truyện</li>
-                        <li class="item_tab_top_app_qltr">Truyện bị disable</li>
+                        <li class="item_tab_top_app_qltr all_book"><a href="/admin/all_book">Tất cả truyện</a></li>
+                        <li class="item_tab_top_app_qltr vip_book"><a href="/admin/vip_book">Quản lí vip truyện</a></li>
+                        <li class="item_tab_top_app_qltr disable_book"><a href="/admin/disable_book">Truyện bị disable</a></li>
                     </ul>
                     <div class="box_content_top">
                         <div class="pane_tab_top_app_qltr active_top_pane">
                             {{!-- tab tổng truyện  --}}
                             <ul class="list">
+                                {{#each lstBook}}
                                 <li class="item">
                                     <div class="box_item">
                                         <div class="box_user">
-                                            <h4 class="user_name">Tên truyện: Tên truyện</h4>
-                                            <h4 class="email">Email người đăng: nguyetuananhdeitrai@gmail.com</h4>
+                                            <h4 class="user_name">Tên truyện: {{this.bookname}}</h4>
+                                            <h4 class="email">{{this.email}}</h4>
                                         </div>
-                                        <h4>Tổng số chap: 100</h4>
-                                        <a class="status_account disable_account">Disable</a>
+                                        <h4>Ngày tạo: {{toDate this.createdAt}}</h4>
+                                        {{#if (checkTypeBook ../tab this)}}
+                                            <span style="color: #000">{{changeSpanBook ../tab}}<a href="/admin/{{../tab}}/{{this._id}}/{{disableRuleBook ../tab}}" class="status_account active_account">Active</a></span> 
+                                        {{else}}
+                                            <span style="color: #000">{{changeSpanBook ../tab}}<a href="/admin/{{../tab}}/{{this._id}}/{{enableRuleBook ../tab}}" class="status_account disable_account">Disable</a></span> 
+                                        {{/if}}
                                     </div>
                                 </li>
-                                <li class="item">
-                                    <div class="box_item">
-                                        <div class="box_user">
-                                            <h4 class="user_name">Tên truyện: Tên truyện</h4>
-                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
-                                        </div>
-                                        <h4>Tổng số chap: 100</h4>
-                                        <a class="status_account disable_account">Disable</a>
-                                    </div>
-                                </li>
-                                <li class="item">
-                                    <div class="box_item">
-                                        <div class="box_user">
-                                            <h4 class="user_name">Tên truyện: Tên truyện</h4>
-                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
-                                        </div>
-                                        <h4>Tổng số chap: 100</h4>
-                                        <a class="status_account disable_account">Disable</a>
-                                    </div>
-                                </li>
-                                <li class="item">
-                                    <div class="box_item">
-                                        <div class="box_user">
-                                            <h4 class="user_name">Tên truyện: Tên truyện</h4>
-                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
-                                        </div>
-                                        <h4>Tổng số chap: 100</h4>
-                                        <a class="status_account disable_account">Disable</a>
-                                    </div>
-                                </li>
+                                {{/each}}
                             </ul>
                         </div>
                         <div class="pane_tab_top_app_qltr">
                             {{!-- tab truyện bị disable  --}}
                             <ul class="list">
-                                <li class="item">
-                                    <div class="box_item">
-                                        <div class="box_user">
-                                            <h4 class="user_name">Tên truyện abc</h4>
-                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
-                                        </div>
-                                        <h4>Tổng số chap: 100</h4>
-                                        <a class="status_account disable_account">Disable</a>
-                                    </div>
-                                </li>
-                                <li class="item">
-                                    <div class="box_item">
-                                        <div class="box_user">
-                                            <h4 class="user_name">Tên truyện abc</h4>
-                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
-                                        </div>
-                                        <h4>Tổng số chap: 100</h4>
-                                        <a class="status_account disable_account">Disable</a>
-                                    </div>
-                                </li>
-                                <li class="item">
-                                    <div class="box_item">
-                                        <div class="box_user">
-                                            <h4 class="user_name">Tên truyện abc</h4>
-                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
-                                        </div>
-                                        <h4>Tổng số chap: 100</h4>
-                                        <a class="status_account disable_account">Disable</a>
-                                    </div>
-                                </li>
-                                <li class="item">
-                                    <div class="box_item">
-                                        <div class="box_user">
-                                            <h4 class="user_name">Nguyễn Tuấn Anh Đẹp Trai</h4>
-                                            <h4 class="email">nguyetuananhdeitrai@gmail.com</h4>
-                                        </div>
-                                        <h4>Tổng số chap: 100</h4>
-                                        <a class="status_account disable_account">Disable</a>
-                                    </div>
-                                </li>
+                                
                             </ul>
                         </div>
                     </div>
@@ -330,46 +276,5 @@
             </div>
         </div>
     </div>
-    <script>
-        const $ = document.querySelector.bind(document);
-        const $$ = document.querySelectorAll.bind(document);
-        
-        const tabsLeft = $$('.item__tab_left_app');
-        const pansLeft = $$('.pane__tab_left_app');
-        //console.log(tabsLeft,pansLeft)
-        tabsLeft.forEach((tabLeft, index) =>{
-            const pane = pansLeft[index]
-            tabLeft.onclick = function(){
-                $('.pane__tab_left_app.active_left_pane').classList.remove('active_left_pane');
-                $('.item__tab_left_app.active_left').classList.remove('active_left');
-                this.classList.add('active_left');
-                pane.classList.add('active_left_pane');
-            }
-        })
-        //tab quan lý truyện
-        const tabsTops = $$('.item_tab_top_app');
-        const pansTop = $$('.pane_tab_top_app');
-        tabsTops.forEach((tabTop, index) =>{
-            const pane = pansTop[index]
-            tabTop.onclick = function(){
-                $('.pane_tab_top_app.active_top_pane').classList.remove('active_top_pane');
-                $('.item_tab_top_app.active_top').classList.remove('active_top');
-                this.classList.add('active_top');
-                pane.classList.add('active_top_pane');
-            }
-        })
-        //tab quan lý tài khoản
-        const tabsTopsqltrs = $$('.item_tab_top_app_qltr');
-        const pansTopqltr = $$('.pane_tab_top_app_qltr');
-        tabsTopsqltrs.forEach((tabTopqltr, index) =>{
-            const pane = pansTopqltr[index]
-            tabTopqltr.onclick = function(){
-                $('.pane_tab_top_app_qltr.active_top_pane').classList.remove('active_top_pane');
-                $('.item_tab_top_app_qltr.active_top').classList.remove('active_top');
-                this.classList.add('active_top');
-                pane.classList.add('active_top_pane');
-            }
-        })
-    </script>
 </body>
 </html>

@@ -35,4 +35,8 @@ router.get('/:tab/:book/enable_book', ctl.enableBook);
 
 router.get('/:tab/:book/disable_book', ctl.disableBook);
 
+router.get('/:tab/:book/enable_vip_book', ctl.enablevipBook);
+
+router.get('/:tab/:book/disable_vip_book', ctl.disablevipBook);
+
 module.exports = router;

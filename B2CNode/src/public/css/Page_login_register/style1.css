@@ -79,6 +79,21 @@ input:is(:focus, :valid){
     background: #434141;
     
 }
+.btn_submit{
+    background: #242121;
+    color: white;
+    width: 100%;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    transition: 0.25s ;
+    border-radius: 12px;
+    font-size: 20px;
+    margin-top: 40px;
+    text-align: center;
+}
+.btn_submit:hover{
+    background: #8f8f8f;
+}
 .text-center a{
     color: #00a6ff;
     text-decoration: none;

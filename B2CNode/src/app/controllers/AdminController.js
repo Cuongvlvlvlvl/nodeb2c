@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Book = require('../models/Books');
+const Notify = require('../models/Notify');
 
 class AdminController {
   //[get] -> home
@@ -15,7 +16,7 @@ class AdminController {
       }
       else
       {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     }
     else
@@ -36,7 +37,7 @@ class AdminController {
       }
       else
       {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     }
     else
@@ -57,7 +58,7 @@ class AdminController {
       }
       else
       {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     }
     else
@@ -78,7 +79,7 @@ class AdminController {
       }
       else
       {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     }
     else
@@ -101,7 +102,7 @@ class AdminController {
       }
       else
       {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     }
     else
@@ -124,7 +125,7 @@ class AdminController {
       }
       else
       {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     }
     else
@@ -147,7 +148,7 @@ class AdminController {
       }
       else
       {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     }
     else
@@ -170,7 +171,7 @@ class AdminController {
       }
       else
       {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     }
     else
@@ -193,7 +194,7 @@ class AdminController {
       }
       else
       {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     }
     else
@@ -216,7 +217,7 @@ class AdminController {
       }
       else
       {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     }
     else
@@ -228,14 +229,14 @@ class AdminController {
   async allBook(req, res) { 
     if(req.isAuthenticated()) {
       if(req.user.admin == true) {
-        var tab = 'all_books';
-        var lstBook = await Book.find({});
+        var tab = 'all_book';
+        var lstBook = await Book.find({}).sort({active: -1});
         lstBook = lstBook.map(user => user.toObject());
         res.render('admin', {session: req.user, layout: false, lstBook, tab});
       }
       else
       {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     }
     else
@@ -248,14 +249,14 @@ class AdminController {
     if(req.isAuthenticated()) {
       if(req.user.admin == true) {
         //xử lí thông tin vào book
-        var tab = 'all_books';
-        var lstBook = await Book.find({vip: true});
+        var tab = 'vip_book';
+        var lstBook = await Book.find({active: true}).sort({vip: -1});
         lstBook = lstBook.map(user => user.toObject());
         res.render('admin', {session: req.user, layout: false, lstBook, tab});
       }
       else
       {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     }
     else
@@ -268,14 +269,14 @@ class AdminController {
     if(req.isAuthenticated()) {
       if(req.user.admin == true) {
         //xử lí thông tin vào book
-        var tab = 'disable_books';
+        var tab = 'disable_book';
         var lstBook = await Book.find({active: false});
         lstBook = lstBook.map(user => user.toObject());
         res.render('admin', {session: req.user, layout: false, lstBook, tab});
       }
       else
       {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     }
     else
@@ -291,12 +292,15 @@ class AdminController {
         //xử lý all account
         var thisbook = await Book.findOne({_id: req.params.book});
         thisbook.active = false;
+        var lstNotify = await Notify.find({bookname: thisbook.bookname});
+        lstNotify.forEach( noti => { noti.remove(); });
         thisbook.save();
+        sleep(500);
         res.redirect('/admin/'+ req.params.tab);
       }
       else
       {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     }
     else
@@ -313,11 +317,56 @@ class AdminController {
         var thisbook = await Book.findOne({_id: req.params.book});
         thisbook.active = true;
         thisbook.save();
+        sleep(500);
         res.redirect('/admin/'+ req.params.tab);
       }
       else
       {
-        res.redirect('/');
+        res.redirect('/lost');
+      }
+    }
+    else
+    {
+      res.redirect('/auth/login');
+    }
+  }
+
+  async enablevipBook(req, res) { 
+    if(req.isAuthenticated()) {
+      if(req.user.admin == true) {
+        //xử lí thông tin vào admin
+        //xử lý all account
+        var thisbook = await Book.findOne({_id: req.params.book});
+        thisbook.vip = true;
+        thisbook.save();
+        sleep(500);
+        res.redirect('/admin/'+ req.params.tab);
+      }
+      else
+      {
+        res.redirect('/lost');
+      }
+    }
+    else
+    {
+      res.redirect('/auth/login');
+    }
+  }
+
+  async disablevipBook(req, res) { 
+    if(req.isAuthenticated()) {
+      if(req.user.admin == true) {
+        //xử lí thông tin vào admin
+        //xử lý all account
+        var thisbook = await Book.findOne({_id: req.params.book});
+        thisbook.vip = false;
+        thisbook.save();
+        sleep(500);
+        res.redirect('/admin/'+ req.params.tab);
+      }
+      else
+      {
+        res.redirect('/lost');
       }
     }
     else

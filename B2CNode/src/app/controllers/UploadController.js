@@ -15,7 +15,7 @@ class UploadController {
 
         res.render('uploadBooks', {notify, session: req.user});  
       } else {
-        res.redirect('/'); 
+        res.redirect('/lost'); 
       }
     } else
     res.redirect('/auth/login');
@@ -32,7 +32,7 @@ class UploadController {
 
         res.render('uploadBooks', {notify, session: req.user, notFirstTime: false});  
       } else {
-        res.redirect('/'); 
+        res.redirect('/losts'); 
       }  
     } else
     res.redirect('/auth/login');
@@ -82,7 +82,7 @@ class UploadController {
 
         res.render('uploadChaps', {notify, link: req.params.bookslug, name: thisbook.bookname, session: req.user, pic: thisbook.pic});  
       } else {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     } else {
       res.redirect('/auth/login');

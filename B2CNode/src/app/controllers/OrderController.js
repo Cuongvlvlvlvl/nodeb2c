@@ -11,7 +11,7 @@ class OrderController {
 
       res.render('order', {notify, session: req.user});  
     } else
-    res.redirect('/');
+    res.redirect('/auth/login');
   }
 
 }

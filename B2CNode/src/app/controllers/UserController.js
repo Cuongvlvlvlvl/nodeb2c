@@ -16,7 +16,7 @@ class UserController {
 
             res.render('userInfo', {notify, session: req.user});
         } else {
-            res.redirect('/');
+            res.redirect('/auth/login');
         }
     }
 
@@ -32,7 +32,7 @@ class UserController {
             lstBook = lstBook.map(book => book.toObject());
             res.render('userLstBook', {notify, session: req.user, lstBook});
         } else {
-            res.redirect('/');
+            res.redirect('/auth/login');
         }
     }
 
@@ -48,7 +48,7 @@ class UserController {
             lstBuy = lstBuy.map(his => his.toObject());
             res.render('buyHistory', {notify, session: req.user, lstBuy});
         } else {
-            res.redirect('/');
+            res.redirect('/auth/login');
         }
     }
 
@@ -62,7 +62,7 @@ class UserController {
 
             res.render('changePass', {notify, session: req.user})
         } else {
-            res.redirect('/');
+            res.redirect('/auth/login');
         }
     }
 

@@ -24,6 +24,10 @@ function route(app) {
 
   app.use('/user', user);
 
+  app.get('/lost', (req, res) => {
+    res.render('lost');
+  })
+
   //for fetch-use
   app.post('/comments', (req, res) => {
     const comment = new Comment({

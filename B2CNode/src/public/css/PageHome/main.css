@@ -847,7 +847,7 @@ i.fa-solid.fa-circle.notification_header_viewed{
 
 .item_book_desc{
     font-size: 12px;
-    line-height: 22px;
+    line-height: 16px;
     text-align: left;
     color: #fff;
     width: 90%;
@@ -855,7 +855,7 @@ i.fa-solid.fa-circle.notification_header_viewed{
     text-overflow: ellipsis;
     -webkit-line-clamp: 5;
     display: -webkit-box;
-   -webkit-box-orient: vertical;
+    -webkit-box-orient: vertical;
 }
 
 .item_book_read_now{

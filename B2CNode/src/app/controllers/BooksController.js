@@ -27,12 +27,12 @@ class BooksController {
     if(thisbook.vip == true){
       //check xem nguoi dung da dang nhap chua
       if(!req.isAuthenticated()){
-        res.redirect('/');
+        res.redirect('/auth/login');
       } else {
         const userVipDate = new Date(req.user.vipexpire);
         const today = new Date(Date.now());
         //check vip cua nguoi dung da het han chua
-        if(userVipDate < today) {
+        if(userVipDate < today || !(req.user.email == thisbook.email)) {
           res.render('order', {notify, session: req.user})
         } else {
           //check if user viewed this book
@@ -102,10 +102,10 @@ class BooksController {
         lstNotify.forEach( noti => { noti.remove(); });
         res.redirect('/user/book');
       } else {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     } else {
-      res.redirect('/');
+      res.redirect('/auth/login');
     }
   }
 
@@ -121,12 +121,12 @@ class BooksController {
     if(thisbook.vip == true){
       //check xem nguoi dung da dang nhap chua
       if(!req.isAuthenticated()){
-        res.redirect('/');
+        res.redirect('/auth/login');
       } else {
         const userVipDate = new Date(req.user.vipexpire);
         const today = new Date(Date.now());
         //check vip cua nguoi dung da het han chua
-        if(userVipDate < today) {
+        if(userVipDate < today || !(req.user.email == thisbook.email)) {
           res.render('order', {notify, session: req.user})
         } else {
           var chaps = await Chap.findOne({bookid: thisbook._id,  chapslug: req.params.chap});
@@ -153,12 +153,12 @@ class BooksController {
     if(thisbook.vip == true){
       //check xem nguoi dung da dang nhap chua
       if(!req.isAuthenticated()){
-        res.redirect('/');
+        res.redirect('/auth/login');
       } else {
         const userVipDate = new Date(req.user.vipexpire);
         const today = new Date(Date.now());
         //check vip cua nguoi dung da het han chua
-        if(userVipDate < today) {
+        if(userVipDate < today || !(req.user.email == thisbook.email)) {
           res.render('order', {notify, session: req.user})
         } else {
           viewNumber = thisbook.viewCount;
@@ -214,12 +214,12 @@ class BooksController {
     if(thisbook.vip == true){
       //check xem nguoi dung da dang nhap chua
       if(!req.isAuthenticated()){
-        res.redirect('/');
+        res.redirect('/auth/login');
       } else {
         const userVipDate = new Date(req.user.vipexpire);
         const today = new Date(Date.now());
         //check vip cua nguoi dung da het han chua
-        if(userVipDate < today) {
+        if(userVipDate < today || !(req.user.email == thisbook.email)) {
           res.render('order', {notify, session: req.user})
         } else {
           viewNumber = thisbook.viewCount;
@@ -296,10 +296,10 @@ class BooksController {
         res.render('book', {notify, session: req.user, thisbook: thisbook.toObject(), lstchap: chaps, viewNumber, chapCount, thisUser, lstcomment});
         });
       } else {
-        res.redirect('/');
+        res.redirect('/lost');
       }
     } else {
-      res.redirect('/');
+      res.redirect('/auth/login');
     }
   }
 

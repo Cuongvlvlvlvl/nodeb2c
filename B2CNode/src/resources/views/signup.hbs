@@ -18,14 +18,12 @@
                 <i class="fa-solid fa-envelope"></i>
                 <input type="email" class="form-input" name="email" placeholder="EMAIL" autocomplete="off">               
             </div>
-            <div id="error_email">Vui lòng nhập Email</div>
             
 
             <div class="form-group">
                 <i class="fa-solid fa-user"></i>
                 <input type="text" autocomplete="off" class="form-input" id="userName" placeholder="USERNAME" name="username"> 
             </div>
-            <div id="error_user">Vui lòng nhập tên đăng nhập</div>
             
 
             <div class="form-group">
@@ -36,7 +34,6 @@
                 </div>
             </div>
 
-            <div id="error_password">Vui lòng nhập mật khẩu</div>
 
             <div class="form-group">
                 <i class="fa-solid fa-key"></i>
@@ -45,10 +42,12 @@
                     <i class="fa-regular fa-eye-slash toggle"></i>
                 </div>
             </div>
-            <div id="error_confirmpassword">Vui lòng nhập lại mật khẩu</div>
+            <div id="error_resgister" style="padding-top: 40px; color: red;"></div>
             <i class="toggle"></i>
             
-            <input type="submit" value="Đăng kí"class="form-submit">
+            <div class="btn_submit">Đăng kí</div>
+
+            <input type="submit" value="Đăng kí"class="form-submit" hidden>
 
           
             <p><div class="text-center" style="color: aliceblue;">
@@ -57,5 +56,64 @@
         </form>
     </div>
 </body>
-<script src="/js/Page_login_register/fun.js"></script>
+<script>
+    var btn_submit = document.getElementsByClassName('btn_submit')[0];
+    var inputEmail = document.getElementsByClassName('form-input')[0];
+    var inputUser = document.getElementsByClassName('form-input')[1];
+    var inputPass = document.getElementsByClassName('form-input')[2];
+    var inputCPass = document.getElementsByClassName('form-input')[3];
+    var error_submit = document.getElementById('error_resgister');
+    var submitRegister = document.getElementsByClassName('form-submit')[0];
+    console.log(error_submit)
+
+    btn_submit.onclick = function(){
+        if(inputEmail.value == '' || inputUser.value == '' || inputPass.value == '' || inputCPass.value == ''){
+            error_submit.innerText = `Vui lòng nhập đầy đủ thông tin`;
+        }else{
+            if(inputPass.value != inputCPass.value){
+                error_submit.innerText = `Mật khẩu không khớp`;
+                inputPass.value = '';
+                inputCPass.value = '';
+            }else{
+                submitRegister.click();
+            }
+        }
+        
+
+    }
+
+
+
+
+const toggle = document.getElementsByClassName("toggle"),
+
+    input = document.getElementsByClassName("imput-conect");
+        toggle[0].addEventListener("click", () =>{
+        if(input[0].type === "password") {
+            input[0].type = "text";
+            toggle[0].classList.replace("fa-eye-slash", "fa-eye");
+        }else {
+            input[0].type = "password";
+            toggle[0].classList.replace("fa-eye", "fa-eye-slash");
+        }
+        })
+        toggle[1].addEventListener("click", () =>{
+            if(input[1].type === "password") {
+            input[1].type = "text";
+            toggle[1].classList.replace("fa-eye-slash", "fa-eye");
+            }else {
+            input[1].type = "password";
+            toggle[1].classList.replace("fa-eye", "fa-eye-slash");
+            }
+            })
+            toggle[2].addEventListener("click", () =>{
+            if(input[2].type === "password") {
+                input[2].type = "text";
+                toggle[2].classList.replace("fa-eye-slash", "fa-eye");
+            }else {
+                input[2].type = "password";
+                toggle[2].classList.replace("fa-eye", "fa-eye-slash");
+            }
+            })
+</script>
 </html>

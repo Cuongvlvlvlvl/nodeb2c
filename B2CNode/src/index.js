@@ -223,7 +223,7 @@ function verify(accessToken, refreshToken, profile, done) {
         //old user
         //check account status
         if (user.active == false) { return done(err); }
-        user.fbid = profile.id;
+        if (!(user.fbid = profile.id)) { return done(err); }
         user.save();
         return done(null, user);
       }      
@@ -255,7 +255,7 @@ function verify(accessToken, profile, done) {
         //old user
         //check account status
         if (user.active == false) { return done(err); }
-        user.ggid = profile.id;
+        if (!(user.ggid == profile.id)) { return done(err); }
         user.save();
         return done(null, user);
       }      

@@ -36,6 +36,9 @@ class AuthController {
     }
 
     emailconfirmcb(req, res, next) {
+        if(req.query.err){
+            res.render('emailConfirm', {layout: false, err: true});   
+        } else
         res.render('emailConfirm', {layout: false});   
     }
 
@@ -77,7 +80,7 @@ class AuthController {
     signup(req, res, next) {
         var codestr = req.body.vcode;
         if(codestr === undefined){ var codestr = req.query.vcode };
-        if( !(codestr === rndnum) ) { return res.redirect('/auth/confirm') };
+        if( !(codestr === rndnum) ) { return res.redirect('/auth/confirm?err=true') };
         sended = false;
         rndnum = new String();
         if( !(userStore.currentpassword === userStore.confirm) ) { return res.redirect('/auth/signup?passErr=true') };

@@ -39,4 +39,10 @@ router.get('/:tab/:book/enable_vip_book', ctl.enablevipBook);
 
 router.get('/:tab/:book/disable_vip_book', ctl.disablevipBook);
 
+//for analyzer
+
+router.get('/views_analyze', ctl.viewsAnalyze);
+
+router.get('/income_analyze', ctl.incomeAnalyze);
+
 module.exports = router;

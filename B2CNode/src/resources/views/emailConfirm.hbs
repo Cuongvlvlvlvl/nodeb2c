@@ -18,10 +18,11 @@
                 <i class="fa-solid fa-envelope"></i>
                 <input type="text" class="form-input" name="vcode" placeholder="code" autocomplete="off">               
             </div>
-            <div id="error_email">Vui lòng nhập Email</div>
-                     
+            <div id="error_email">Vui lòng nhập mã xác nhận!</div>
             <input type="submit" value="xác nhận"class="form-submit">
-
+            {{#if err}}
+                <p style="color: red;">Nhập sai mã xác nhận!</p>
+            {{/if}}
             <p><div class="text-center" style="color: aliceblue;">
                 Đã có tài khoản ? <a href="/auth/login" >LOG IN</a>
             </div></p>

@@ -30,9 +30,15 @@
     .btn_book{
         width: 25%;
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
         height: 100%;
+    }
+    
+    .tag_vip{
+        font-size: 20px;
+        color: rgb(158, 237, 0);
+        font-weight: 700;
     }
 </style>
 
@@ -40,16 +46,22 @@
 <div class="box_page_userLstBook m_t_mobile grid wide">
     <h2 class="title_box_page_userLstBook">Danh sách những truyện đã đăng</h2>
     {{#each lstBook}}
-        <a href="/read/{{slug}}">
+        <div class="box_link_book">
             <div class="box_book_page_userLstBook">
-                <h3>Tên sách: {{bookname}}</h3>     
+                {{#if this.vip}}
+                <a style="color: #efd637;" href="/read/{{slug}}">Tên sách: {{bookname}}
+                    (VIP)
+                {{else}}
+                <a href="/read/{{slug}}">Tên sách: {{bookname}}
+                {{/if}} 
+                </a>
                 <div class="btn_book">
                     <a href="/upload/{{slug}}/addchap">Thêm chap</a>
                     <a style="color: #eb5151;" href="/read/{{slug}}/delete">Xóa sách</a>
                 </div>   
             </div>        
-        </a>
-        {{else}}
+        </div>
+    {{else}}
         <h3>Bạn chưa đăng bất kỳ sách nào!</h3>
     {{/each}}   
     

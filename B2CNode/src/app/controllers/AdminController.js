@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const Book = require('../models/Books');
 const Notify = require('../models/Notify');
+const Buyhistory = require('../models/BuyHistory');
+
 
 class AdminController {
   //[get] -> home
@@ -363,6 +365,60 @@ class AdminController {
         thisbook.save();
         sleep(500);
         res.redirect('/admin/'+ req.params.tab);
+      }
+      else
+      {
+        res.redirect('/lost');
+      }
+    }
+    else
+    {
+      res.redirect('/auth/login');
+    }
+  }
+
+  async viewsAnalyze(req, res) { 
+    if(req.isAuthenticated()) {
+      if(req.user.admin == true) {
+        var tab = 'views_analyze';
+        var lstView = await Book.find({}).sort({ viewCount: -1 , createdAt: -1});
+        lstView = lstView.map(view => view.toObject());
+        res.render('admin', {session: req.user, layout: false, lstView, tab});
+      }
+      else
+      {
+        res.redirect('/lost');
+      }
+    }
+    else
+    {
+      res.redirect('/auth/login');
+    }
+  }
+
+  async incomeAnalyze(req, res) { 
+    if(req.isAuthenticated()) {
+      if(req.user.admin == true) {
+        var tab = 'income_analyze';
+        var sum = 0;
+        var lstIncome = new Array();
+        var lstUser = await User.find({});
+        await Promise.all(lstUser.map( async function(thisuser) {
+          var totalMoney = 0;
+          var userLstBuy = await Buyhistory.find({email: thisuser.email});
+          userLstBuy.forEach( history => {
+            totalMoney += history.vnp_Amount;
+          })
+          lstIncome.push({
+            username: thisuser.username,
+            email: thisuser.email,
+            totalMoney: totalMoney
+          });
+          sum += totalMoney;
+        }))
+        lstIncome = lstIncome.sort((a, b) => b.totalMoney-a.totalMoney);
+        //lstIncome là biến trả về
+        res.render('admin', {session: req.user, layout: false, lstIncome, tab, sum});
       }
       else
       {

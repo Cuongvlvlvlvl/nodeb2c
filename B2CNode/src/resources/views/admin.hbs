@@ -88,7 +88,9 @@
             height: 100%;
         }
         .account_user_active_pane,
-        .book_book_active_pane{
+        .book_book_active_pane,
+        .views_views_active_pane,
+        .income_income_active_pane{
             display: block;
         }
         .box_content_right{
@@ -96,6 +98,12 @@
             flex-direction: column;
             width: 100%;
             height: calc(100% - 40px);
+        }
+        .box_content_right_spec{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: calc(100% - 50px);
         }
         .list_tab_top_app{
             display: flex;
@@ -197,6 +205,8 @@
             <ul class="list_tab_left_app">
                 <li class="item__tab_left_app user_active"><a href="/admin/all_user">Quản lý tài khoản</a></li>
                 <li class="item__tab_left_app book_active" ><a href="/admin/all_book">Quản lý truyện</a></li>
+                <li class="item__tab_left_app views_active" ><a href="/admin/views_analyze">Thống kê lượt xem</a></li>
+                <li class="item__tab_left_app income_active" ><a href="/admin/income_analyze">Thống kê doanh thu</a></li>
             </ul>
         </div>
         <div class="box_container">
@@ -252,7 +262,7 @@
                                     <div class="box_item">
                                         <div class="box_user">
                                             <h4 class="user_name">Tên truyện: {{this.bookname}}</h4>
-                                            <h4 class="email">{{this.email}}</h4>
+                                            <h4 class="email">Email người đăng: {{this.email}}</h4>
                                         </div>
                                         <h4>Ngày tạo: {{toDate this.createdAt}}</h4>
                                         {{#if (checkTypeBook ../tab this)}}
@@ -269,6 +279,57 @@
                             {{!-- tab truyện bị disable  --}}
                             <ul class="list">
                                 
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{!-- tab quản lý Views --}}
+            <div class="pane__tab_left_app views_{{changeMain tab}}_pane">
+                <div class="box_content_right" style="height: 100%;">
+                    <div class="box_content_top">
+                        {{!-- tab hiện thị --}}
+                        <div class="pane_tab_top_app active_top_pane">
+                            <ul class="list">
+                                {{#each lstView}}
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Tên sách: {{this.bookname}}</h4>
+                                            <h4 class="email">Email người đăng: {{this.email}}</h4>
+                                        </div>
+                                        <h4>Ngày tạo: {{toDate this.createdAt}}</h4>
+                                        <span style="color: #000">Lượt xem: <a class="status_account" style="color: #7e0073;">{{this.viewCount}}</a></span> 
+                                    </div>
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{!-- tab quản lý income --}}
+            <div class="pane__tab_left_app income_{{changeMain tab}}_pane">
+                <div class="box_content_right_spec">
+                    <div class="box_content_top">
+                        <ul class="list_tab_top_app">
+                            <li class="item_tab_top_app active_top"><a style="font-size: 25px; background-color: #684e32; color: #ffd000; height: 48px;" href="/admin/income_analyze">Tổng thu nhập: {{sum}} VND</a></li>
+                        </ul>
+                        {{!-- tab hiện thị --}}
+                        <div class="pane_tab_top_app active_top_pane">
+                            <ul class="list">
+                                {{#each lstIncome}}
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Tên tài khoản: {{this.username}}</h4>
+                                            <h4 class="email">Email: {{this.email}}</h4>
+                                        </div>
+                                        <h4></h4>
+                                        <span style="color: #000">Tổng chi: <a class="status_account" style="color: #e6b122;">{{this.totalMoney}}</a><spanstyle="color: #000"> đ</spanstyle=></span> 
+                                    </div>
+                                </li>
+                                {{/each}}
                             </ul>
                         </div>
                     </div>

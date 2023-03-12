@@ -1,17 +1,22 @@
-const { now } = require('mongoose');
+const User = require('../models/User');
 const buyHistory = require('../models/BuyHistory');
+const Notify = require('../models/Notify');
+var mysign = new String();
+var idcheck = new String();
 
 class VnpayController{
 
-    maked (req, res, next) {   
-        var date = Date.now();
-        var dateFormat = require('dateformat');
+    // maked (req, res, next) {   
+    //     var date = Date.now();
+    //     var dateFormat = require('dateformat');
     
-        var desc = 'Thanh toan don hang thoi gian: ' + dateFormat(date, 'yyyymmddHHmmss');
-        res.render('/home', {title: 'Tạo mới đơn hàng', amount: 10000, description: desc})
-    };
+    //     var desc = 'Thanh toan don hang thoi gian: ' + dateFormat(date, 'yyyymmddHHmmss');
+    //     res.render('/home', {title: 'Tạo mới đơn hàng', amount: 10000, description: desc})
+    // };
 
     create(req, res, next) {
+        mysign = makeid();
+        idcheck = mysign;
         var ipAddr = req.headers['x-forwarded-for'] ||
             req.connection.remoteAddress ||
             req.socket.remoteAddress ||
@@ -20,17 +25,17 @@ class VnpayController{
         var tmnCode = '3OKCBGET';
         var secretKey = 'DWYEYOENVIJZANMLNEDGDGDVIKPKULLE';
         var vnpUrl = 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html';
-        var returnUrl = 'https://b2ctech.herokuapp.com/order/vnpay_return';
+        var returnUrl = 'https://b2cbook.up.railway.app/order/vnpay_return';
 
-        var date = Date.now();
+        var date = new Date(Date.now());
         var dateFormat = require('dateformat');
 
         var createDate = dateFormat(date, 'yyyymmddHHmmss');
         var orderId = dateFormat(date, 'HHmmss');
-        var amount = 1000000;
+        var amount = req.query.amount;
         var bankCode = '';
         
-        var orderInfo = 'Tra tien cho Cuongggg';
+        var orderInfo = req.query.title;
         var orderType = 'other';
         var locale = 'vn';
         if(locale === null || locale === ''){
@@ -49,7 +54,7 @@ class VnpayController{
         vnp_Params['vnp_OrderType'] = orderType;
         vnp_Params['vnp_Amount'] = amount * 100;
         vnp_Params['vnp_ReturnUrl'] = returnUrl;
-        vnp_Params['vnp_IpAddr'] = "42.113.108.48";
+        vnp_Params['vnp_IpAddr'] = ipAddr;
         vnp_Params['vnp_CreateDate'] = createDate;
         if(bankCode !== null && bankCode !== ''){
             vnp_Params['vnp_BankCode'] = bankCode;
@@ -69,7 +74,7 @@ class VnpayController{
         res.redirect(vnpUrl);
     };
 
-    return (req, res, next) {
+    async return (req, res, next) {
         var vnp_Params = req.query;
     
         var secureHash = vnp_Params['vnp_SecureHash'];
@@ -86,26 +91,77 @@ class VnpayController{
         var signData = querystring.stringify(vnp_Params, { encode: false });
         var crypto = require("crypto");     
         var hmac = crypto.createHmac("sha512", secretKey);
-        var signed = hmac.update(Buffer.from(signData, 'utf-8')).digest("hex");     
+        var signed = hmac.update(Buffer.from(signData, 'utf-8')).digest("hex");   
+        
+        
+        //load 10 thông báo
+        var notify = await (await Notify.find({})).reverse();
+        notify = notify.slice(0, 10).map( ele => ele.toObject());
     
         if(secureHash === signed){
             if(vnp_Params['vnp_ResponseCode'] === '00'){
-                const fromQuery = req.query;
-                const usersecc = req.user;
-                fromQuery.username = usersecc.username;
-                fromQuery.email = usersecc.email;
-                const buyhistory = new buyHistory(fromQuery);
-                buyhistory.save();
-                res.render('success', {code: vnp_Params['vnp_ResponseCode'], info: 'Thanh toan thanh cong!'});
+                if(idcheck === mysign){
+                    //lưu db
+                    const fromQuery = req.query;
+                    const usersecc = req.user;
+                    fromQuery.username = usersecc.username;
+                    fromQuery.email = usersecc.email;
+                    
+                    var months = 0;
+                    var amountPayed = 0;
+                    switch (req.query.vnp_Amount) {
+                        case '5000000':
+                            months = 1;
+                            amountPayed = 50000;
+                            break;
+
+                        case '15000000':
+                            months = 3;
+                            amountPayed = 150000;
+                            break;
+
+                        case '30000000':
+                            months = 6;
+                            amountPayed = 300000;
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    fromQuery.vnp_Amount = amountPayed;
+                    const buyhistory = new buyHistory(fromQuery);
+                    buyhistory.save();
+
+                    const user = await User.findById(usersecc._id);
+                    const today = new Date(Date.now());
+                    var vipday;
+                    if(user.vipexpire < today) {
+                        vipday = new Date(Date.now());
+                        vipday.setMonth(today.getMonth() + months);
+                    } else {
+                        vipday = new Date(user.vipexpire);
+                        vipday.setMonth(user.vipexpire.getMonth() + months);
+                    }
+
+                    user.vipexpire = vipday;
+                    req.user.vipexpire = vipday;
+                    user.save();
+                    mysign = null;
+
+                    
+                    res.render('success', {notify, session:req.user, code: vnp_Params['vnp_ResponseCode'], info: 'Thanh toan thanh cong!'});
+                }
             }
             else
-                res.render('success', {code: '97', info: 'Thanh toan khong thanh cong!'});
+                res.render('success', {notify, session: req.user, code: '97', info: 'Thanh toan khong thanh cong!'});
         } else{
-            res.render('success', {code: '97', info: 'Loi khong xac dinh!'});
+            res.render('success', {notify, session: req.user, code: '97', info: 'Loi khong xac dinh!'});
         }
     };
     
-    ipn (req, res, next) {
+    async ipn (req, res, next) {
+        
         var vnp_Params = req.query;
         var secureHash = vnp_Params['vnp_SecureHash'];
     
@@ -125,6 +181,44 @@ class VnpayController{
             var orderId = vnp_Params['vnp_TxnRef'];
             var rspCode = vnp_Params['vnp_ResponseCode'];
             //Kiem tra du lieu co hop le khong, cap nhat trang thai don hang va gui ket qua cho VNPAY theo dinh dang duoi
+                    // const fromQuery = req.query;
+                    // const usersecc = req.user;
+                    // fromQuery.username = usersecc.username;
+                    // fromQuery.email = usersecc.email;
+                    // const buyhistory = new buyHistory(fromQuery);
+                    // buyhistory.save();
+                    // var months = 0;
+                    // switch (req.query.vnp_Amount) {
+                    //     case '5000000':
+                    //         months = 1;
+                    //         break;
+
+                    //     case '15000000':
+                    //         months = 3;
+                    //         break;
+
+                    //     case '30000000':
+                    //         months = 6;
+                    //         break;
+
+                    //     default:
+                    //         break;
+                    // }
+                    // const user = await User.findById(usersecc._id);
+                    // const today = new Date(Date.now());
+                    // var vipday;
+                    // if(user.vipexpire < today) {
+                    //     vipday = new Date(Date.now());
+                    //     vipday.setMonth(today.getMonth() + months);
+                    // } else {
+                    //     vipday = new Date(user.vipexpire);
+                    //     vipday.setMonth(user.vipexpire.getMonth() + months);
+                    // }
+
+                    // user.vipexpire = vipday;
+                    // req.user.vipexpire = vipday;
+                    // user.save();
+                    // mysign == null;
             res.status(200).json({RspCode: '00', Message: 'success'})
         }
         else {
@@ -148,6 +242,16 @@ function sortObject(obj) {
         sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, "+");
     }
     return sorted;
+}
+
+function makeid() {
+    var result           = '';
+    var characters       = 'abcdefghjklmnouywz0123456789';
+    var charactersLength = 12;
+    for ( var i = 0; i < 6; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
 }
 
 module.exports = new VnpayController();

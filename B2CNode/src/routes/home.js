@@ -5,4 +5,6 @@ const ctl = require('../app/controllers/HomeController');
 
 router.get('/', ctl.index);
 
+router.get('/session', ctl.sessionapi);
+
 module.exports = router;

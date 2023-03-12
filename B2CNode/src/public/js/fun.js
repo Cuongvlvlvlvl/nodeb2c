@@ -22,7 +22,7 @@ const toggle = document.getElementsByClassName("toggle"),
     })
 
 
-var user= document.forms['form']['user'];
+var username= document.forms['form']['username'];
 var password= document.forms['form']['password'];
 var email= document.forms['form']['email'];
 var confirmpassword= document.forms['form']['confirm'];
@@ -32,7 +32,7 @@ var error_password= document.getElementById('error_password');
 var error_email= document.getElementById('error_email');
 var error_confirmpassword= document.getElementById('error_confirmpassword');
 
-user.addEventListener('textInput',user_veryfy);
+username.addEventListener('textInput',user_veryfy);
 password.addEventListener('textInput',pass_veryfy);
 email.addEventListener('textInput',email_veryfy);
 confirmpassword.addEventListener('textInput',confirm_veryfy);

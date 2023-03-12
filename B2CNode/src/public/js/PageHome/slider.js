@@ -4,10 +4,10 @@ document.getElementById('next').onclick = function(){
     // console.log(lists)
 }
 
-// setInterval(() => {
-//     let lists = document.getElementsByClassName('slider_item');
-//     document.getElementById('slider_img').appendChild(lists[0])
-// }, 10000);
+setInterval(() => {
+    let lists = document.getElementsByClassName('slider_item');
+    document.getElementById('slider_img').appendChild(lists[0])
+}, 5000);
 
 document.getElementById('prev').onclick = function(){
     let lists = document.getElementsByClassName('slider_item');

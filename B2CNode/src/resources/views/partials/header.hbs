@@ -1,212 +1,146 @@
-    
-        <div class="test"></div>
-        <header class="header">
-            <div class="grid wide">
-                <div class="header_content">
-                <div class="logo_header center">
-                    <a href="#" class="link"> <img class="img_logo" src="/img/logo.png" alt=""></a>
-                </div>
-                <div class="search_header center hide_on_mobile">
-                    <div class="block_input">
-                        <i class="fa-solid fa-magnifying-glass search_header_icon"></i>
-                        <input class="search_header_input" type="text" placeholder="Search for the book you want and read it now... ">
-                        <div class="box_search">
-                            <ul class="box_search_list">
-                                <li class="box_search_item"><a href="#" class="box_search_link">Tên Sách 1</a></li>
-                                <li class="box_search_item"><a href="#" class="box_search_link">Tên Sách 2</a></li>
-                                <li class="box_search_item"><a href="#" class="box_search_link">Tên Sách 3</a></li>
-                                <li class="box_search_item"><a href="#" class="box_search_link">Tên Sách 4</a></li>
-                                <li class="box_search_item"><a href="#" class="box_search_link">Tên Sách 5</a></li>
-                            </ul>
-                        </div>
+<div class="test"></div>
+<header class="header">
+    <div class="grid wide">
+        <div class="header_content">
+        <div class="logo_header center">
+            <a href="/" class="link"> <img class="img_logo" src="/img/logo.png" alt=""></a>
+        </div>
+        <div class="search_header center hide_on_mobile">
+            <div class="block_input">
+                <i class="fa-solid fa-magnifying-glass search_header_icon"></i>
+                <input class="search_header_input" type="search" placeholder="Search for the book you want and read it now... " data-search>
+                <div class="box_search"data-books-container></div>
+                <template data-books-template>
+                    <div class="card">
+                        <a href="#" class="box_search_link" data-book></a>
                     </div>
-                </div>                
-                <div class="info_header">
-                    <div class="favourite_header center hide_on_mobile"><i class="fa-regular fa-heart favourite_header_icon"></i></div>
-                    <div class="notification_header center js_show_hide">
-                        <i  class="fa-regular fa-bell notification_header_icon notification_header_view"><i class="fa-solid fa-circle notification_header_viewed js_seen seen"></i></i>                    
-                        <div class="notification_box js_fun_show_hide">
-                            <div class="header_notify">
-                                <h3 class="title_notification_box">Thông báo</h3> 
-                                <span class="see_all_notify">Mark as read all</span>
-                            </div>
-                            <ul class="list_notify_header">
-                                <li class="item_notify_header">
-                                    <a href="#" class="link_item_notify_header">
-                                        <img class="img_item_notify_header" src="/img/avata.jpg" alt="">
-                                        <div class="content_item_notify_header">
-                                            <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                            <div class="status_box">
-                                                <span class="status_title">Trạng thái:</span>
-                                                <span class="status_disc">Sách vừa ra</span>
-                                                <span class="status_chap">Chap 3</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="item_notify_header">
-                                    <a href="#" class="link_item_notify_header">
-                                        <img class="img_item_notify_header" src="/img/avata.jpg" alt="">
-                                        <div class="content_item_notify_header">
-                                            <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                            <div class="status_box">
-                                                <span class="status_title">Trạng thái:</span>
-                                                <span class="status_disc">Sách vừa ra</span>
-                                                <span class="status_chap">Chap 3</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="item_notify_header">
-                                    <a href="#" class="link_item_notify_header">
-                                        <img class="img_item_notify_header" src="/img/avata.jpg" alt="">
-                                        <div class="content_item_notify_header">
-                                            <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                            <div class="status_box">
-                                                <span class="status_title">Trạng thái:</span>
-                                                <span class="status_disc">Sách vừa ra</span>
-                                                <span class="status_chap">Chap 3</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="item_notify_header">
-                                    <a href="#" class="link_item_notify_header">
-                                        <img class="img_item_notify_header" src="/img/avata.jpg" alt="">
-                                        <div class="content_item_notify_header">
-                                            <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                            <div class="status_box">
-                                                <span class="status_title">Trạng thái:</span>
-                                                <span class="status_disc">Sách vừa ra</span>
-                                                <span class="status_chap">Chap 3</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="item_notify_header">
-                                    <a href="#" class="link_item_notify_header">
-                                        <img class="img_item_notify_header" src="/img/avata.jpg" alt="">
-                                        <div class="content_item_notify_header">
-                                            <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                            <div class="status_box">
-                                                <span class="status_title">Trạng thái:</span>
-                                                <span class="status_disc">Sách vừa ra</span>
-                                                <span class="status_chap">Chap 3</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="item_notify_header">
-                                    <a href="#" class="link_item_notify_header">
-                                        <img class="img_item_notify_header" src="/img/avata.jpg" alt="">
-                                        <div class="content_item_notify_header">
-                                            <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                            <div class="status_box">
-                                                <span class="status_title">Trạng thái:</span>
-                                                <span class="status_disc">Sách vừa ra</span>
-                                                <span class="status_chap">Chap 3</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="item_notify_header item_notify_header_viewed">
-                                    <a href="#" class="link_item_notify_header">
-                                        <img class="img_item_notify_header" src="/img/avata.jpg" alt="">
-                                        <div class="content_item_notify_header">
-                                            <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                            <div class="status_box">
-                                                <span class="status_title">Trạng thái:</span>
-                                                <span class="status_disc">Sách vừa ra</span>
-                                                <span class="status_chap">Chap 3</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="item_notify_header item_notify_header_viewed">
-                                    <a href="#" class="link_item_notify_header">
-                                        <img class="img_item_notify_header" src="/img/avata.jpg" alt="">
-                                        <div class="content_item_notify_header">
-                                            <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                            <div class="status_box">
-                                                <span class="status_title">Trạng thái:</span>
-                                                <span class="status_disc">Sách vừa ra</span>
-                                                <span class="status_chap">Chap 3</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="item_notify_header item_notify_header_viewed">
-                                    <a href="#" class="link_item_notify_header">
-                                        <img class="img_item_notify_header" src="/img/avata.jpg" alt="">
-                                        <div class="content_item_notify_header">
-                                            <h4 class="namebook_content_item_notify_header">Tên Sách</h4>
-                                            <div class="status_box">
-                                                <span class="status_title">Trạng thái:</span>
-                                                <span class="status_disc">Sách vừa ra</span>
-                                                <span class="status_chap">Chap 3</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                </template>
+            </div>
+        </div>                
+        <div class="info_header">
+            <div class="favourite_header center hide_on_mobile"><a href="#"><i class="fa-regular fa-bookmark favourite_header_icon"></i></a></div>
+            <div class="notification_header center js_show_hide">
+                <i  class="fa-regular fa-bell notification_header_icon notification_header_view"><i class="fa-solid fa-circle notification_header_viewed js_seen seen"></i></i>                    
+                <div class="notification_box js_fun_show_hide">
+                    <div class="header_notify">
+                        <h3 class="title_notification_box">Thông báo</h3> 
                     </div>
-                    <div class="checkvip_header center hide_on_mobile"><i class="fa-regular fa-gem checkvip_header_icon"></i></div>
-                    <div class="user_header center hide_on_mobile">
-                        <img class="user_header_img" src="/img/avata.jpg">
-                        <div class="box_info_user">
-                            <ul class="list_box_info_user">
-                                {{#if session}}
-                                    <li class="item_box_info_user"><a href="#" class="link_box_info_user name_account">
-                                        {{session.username}}
-                                    </a></li>
-                                {{else}}
-                                    <li class="item_box_info_user"><a class="link_box_info_user name_account" href="/auth/login">Đăng nhập</a></li>
-                                {{/if}}
-                                <li class="item_box_info_user"><a href="#" class="link_box_info_user">Truyện của tôi</a></li>
-                                <li class="item_box_info_user"><a href="/auth/logout" class="link_box_info_user">Đăng xuất</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="user_header_mobile">
-                        <img class="user_header_img_mobile" src="/img/avata.jpg">
-                        <div class="box_notify_mobile ">
-                            <ul class="box_notify_mobile_list">
-                                {{#if session}}
-                                    <li class="box_notify_mobile_item"><a href="#" class="box_notify_mobile_link">
-                                        {{session.username}}
-                                    </a></li>
-                                {{else}}
-                                <li class="box_notify_mobile_item"><a href="/auth/login" class="box_notify_mobile_link">Đăng nhập</a></li>
-                                {{/if}}
-                                <li class="box_notify_mobile_item"><a href="#" class="box_notify_mobile_link">Sách của tôi</a></li>
-                                <li class="box_notify_mobile_item"><a href="#" class="box_notify_mobile_link">Sách đang theo dõi</a></li>
-                                <li class="box_notify_mobile_item"><a href="#" class="box_notify_mobile_link">Vip</a></li>
-                                <li class="box_notify_mobile_item"><a href="#" class="box_notify_mobile_link">Thể loại</a></li>
-                                <li class="box_notify_mobile_item"><a href="#" class="box_notify_mobile_link">Tìm sách</a></li>
-                                <li class="box_notify_mobile_item"><a href="#" class="box_notify_mobile_link">Lịch sử</a></li>
-                                <li class="box_notify_mobile_item"><a href="/auth/logout" class="box_notify_mobile_link">Đăng xuất</a></li>
-                            </ul>
-                            <div class="close_box_notify_mobile"><i class="fa-sharp fa-solid fa-circle-xmark icon_close"></i></div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>            
-        </header>
-        <div class="category_top hide_on_mobile">
-            <div class="grid wide">
-                <div class="category_top_content center">
-                    <ul class="list_category_top">
-                        <li class="item_category_top"><a class="link_item_category_top" href="#">Trang chủ</a></li>
-                        <li class="item_category_top"><a class="link_item_category_top" href="#">Thể loại</a></li>
-                        <li class="item_category_top"><a class="link_item_category_top" href="#">Xếp hạng</a></li>
-                        <li class="item_category_top"><a class="link_item_category_top" href="#">Tìm sách</a></li>
-                        <li class="item_category_top"><a class="link_item_category_top" href="#">Lịch sử</a></li>
-                        <li class="item_category_top"><a class="link_item_category_top" href="#">Tải app</a></li>
-                        <li class="item_category_top"><a class="link_item_category_top" href="#">Thảo luận</a></li>
-                        <li class="item_category_top"><a class="link_item_category_top" href="#">Fanpage</a></li>
+                    <ul class="list_notify_header">
+                        {{#each notify}}
+                        <li class="item_notify_header">
+                            <a href="{{this.booklink}}" class="link_item_notify_header">
+                                <img class="img_item_notify_header" src="{{this.bookImg}}" alt="">
+                                <div class="content_item_notify_header">
+                                    <h4 class="namebook_content_item_notify_header">Sách: {{this.bookname}}</h4>
+                                    <div class="status_box">
+                                        <span class="status_title">Trạng thái:</span>
+                                        <span class="status_disc">Chap vừa ra</span>
+                                        <span class="status_chap">{{this.chapname}}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        {{/each}}
                     </ul>
                 </div>
             </div>
+            {{#if session}}
+                <div class="checkvip_header center hide_on_mobile"><a href="/order"><i class="fa-regular fa-gem checkvip_header_icon"></i></a></div>
+            {{else}}
+                <div class="checkvip_header center hide_on_mobile"><a href="/auth/login"><i class="fa-regular fa-gem checkvip_header_icon"></i></a></div>
+            {{/if}}
+            <div class="user_header center hide_on_mobile">
+                {{#if session}}
+                    <img class="user_header_img" src="/img/avata.gif">
+                {{else}}
+                    <img class="user_header_img" src="/img/notlogin.png">
+                {{/if}}
+                <div class="box_info_user">
+                    <ul class="list_box_info_user">
+                        {{#if session}}
+                            <li class="item_box_info_user"><a href="/user/info" class="link_box_info_user name_account">
+                                {{session.username}}
+                            </a></li>
+                            <li class="item_box_info_user"><a href="#" class="link_box_info_user">Ngày hết hạn vip: {{toDate session.vipexpire}}</a></li>
+                            {{#if session.admin}}
+                                    <li class="item_box_info_user"><a href="/user/book" class="link_box_info_user">Truyện đã đăng</a></li>                             
+                                {{else}}
+                                    {{#if session.uploader}}
+                                        <li class="item_box_info_user"><a href="/user/book" class="link_box_info_user">Truyện đã đăng</a></li>
+                                    {{/if}}
+                                {{/if}}
+                            <li class="item_box_info_user"><a href="/user/history" class="link_box_info_user">Lịch sử thanh toán</a></li>
+                                {{#if session.admin}}
+                                    <li class="item_box_info_user"><a href="/admin" class="link_box_info_user">Quản lí</a></li>   
+                                    <li class="item_box_info_user"><a href="/upload" class="link_box_info_user">Đăng truyện</a></li>                               
+                                {{else}}
+                                    {{#if session.uploader}}
+                                        <li class="item_box_info_user"><a href="/upload" class="link_box_info_user">Đăng truyện</a></li>
+                                    {{/if}}
+                                {{/if}}
+                            <li class="item_box_info_user"><a href="/auth/logout" class="link_box_info_user">Đăng xuất</a></li>
+                        {{else}}
+                            <li class="item_box_info_user"><a class="link_box_info_user name_account" href="/auth/login">Đăng nhập</a></li>
+                            <li class="item_box_info_user"><a href="/auth/signup" class="link_box_info_user name_account">Đăng ký</a></li>
+                        {{/if}}
+                    </ul>
+                </div>
+            </div>
+            <div class="user_header_mobile">
+                {{#if session}}
+                    <img class="user_header_img_mobile" src="/img/avata.gif">
+                {{else}}
+                    <img class="user_header_img_mobile" src="/img/notlogin.png">
+                {{/if}}
+                <div class="box_notify_mobile ">
+                    <ul class="box_notify_mobile_list">
+                        {{#if session}}
+                            <li class="item_box_info_user"><a href="/user/info" class="link_box_info_user name_account">
+                                {{session.username}}
+                            </a></li>
+                            <li class="item_box_info_user"><a href="#" class="link_box_info_user">Ngày hết hạn vip: {{toDate session.vipexpire}}</a></li>
+                            {{#if session.admin}}
+                                    <li class="item_box_info_user"><a href="/user/book" class="link_box_info_user">Truyện đã đăng</a></li>                             
+                                {{else}}
+                                    {{#if session.uploader}}
+                                        <li class="item_box_info_user"><a href="/user/book" class="link_box_info_user">Truyện đã đăng</a></li>
+                                    {{/if}}
+                                {{/if}}
+                            <li class="item_box_info_user"><a href="/user/history" class="link_box_info_user">Lịch sử thanh toán</a></li>
+                                {{#if session.admin}}
+                                    <li class="item_box_info_user"><a href="/admin" class="link_box_info_user">Quản lí</a></li>   
+                                    <li class="item_box_info_user"><a href="/upload" class="link_box_info_user">Đăng truyện</a></li>                               
+                                {{else}}
+                                    {{#if session.uploader}}
+                                        <li class="item_box_info_user"><a href="/upload" class="link_box_info_user">Đăng truyện</a></li>
+                                    {{/if}}
+                                {{/if}}
+                            <li class="item_box_info_user"><a href="/auth/logout" class="link_box_info_user">Đăng xuất</a></li>
+                        {{else}}
+                            <li class="item_box_info_user"><a class="link_box_info_user name_account" href="/auth/login">Đăng nhập</a></li>
+                            <li class="item_box_info_user"><a href="/auth/signup" class="link_box_info_user name_account">Đăng ký</a></li>
+                        {{/if}}
+                    </ul>
+                    <div class="close_box_notify_mobile"><i class="fa-sharp fa-solid fa-circle-xmark icon_close"></i></div>
+                </div>
+            </div>
         </div>
+        </div>
+    </div>            
+</header>
+<div class="category_top hide_on_mobile">
+    <div class="grid wide">
+        <div class="category_top_content center">
+            <ul class="list_category_top">
+                <li class="item_category_top"><a class="link_item_category_top" href="/">Trang chủ</a></li>
+                <li class="item_category_top"><a class="link_item_category_top" href="/lost">Thể loại</a></li>
+                <li class="item_category_top"><a class="link_item_category_top" href="/lost">Xếp hạng</a></li>
+                <li class="item_category_top"><a class="link_item_category_top" href="/lost">Tìm sách</a></li>
+                <li class="item_category_top"><a class="link_item_category_top" href="/lost">Lịch sử</a></li>
+                <li class="item_category_top"><a class="link_item_category_top" href="/lost">Tải app</a></li>
+                <li class="item_category_top"><a class="link_item_category_top" href="/lost">Thảo luận</a></li>
+                <li class="item_category_top"><a class="link_item_category_top" href="/lost">Fanpage</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,161 @@
+<div class="book_container">
+    <div class="grid wide">
+        <div class="book_box">
+            <div class="book_header">
+                <div class="box_img_book_header">
+                    {{#if thisbook}}
+                        <img src="{{thisbook.pic}}">
+                    {{/if}}
+                </div>
+
+                <div class="book_header_info">
+                    <span class="book_header_info_name">Sách: {{#if thisbook}}{{thisbook.bookname}}{{/if}}</span>
+                    <ul class="list_book_header_info">
+                        <li class="item_book_header_info"><i class="fa-solid fa-user"></i>Người đăng: {{#if thisbook}}{{thisbook.author}}{{/if}}</li>
+                        <li class="item_book_header_info"><i class="fa-solid fa-eye"></i>Lượt xem: {{viewNumber}}</li>
+                        <li class="item_book_header_info"><i class="fa-solid fa-rss"></i>Tình trạng: Có {{chapCount}} chương</li>
+                    </ul>
+                    <ul class="list_category_book_header">
+                        <li class="item_category_book_header"><a href="#" class="link_item_category_book_header">Action</a></li>
+                        <li class="item_category_book_header"><a href="#" class="link_item_category_book_header">Fantasy</a></li>
+                        <li class="item_category_book_header"><a href="#" class="link_item_category_book_header">Shounen</a></li>
+                        <li class="item_category_book_header"><a href="#" class="link_item_category_book_header">Supernatural</a></li>
+                        <li class="item_category_book_header"><a href="#" class="link_item_category_book_header">Manhua</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="book_desc_header">
+                <h3 class="book_header_title"><i class="fa-solid fa-circle-info"></i>Giới Thiệu</h3>
+                {{#if thisbook}}
+                <p class="book_desc_header_p">
+                    {{thisbook.decs}}
+                </p>
+                {{/if}}
+            </div>
+            <div class="book_chapter_header">
+                <h3 class="book_header_title"><i class="fa-solid fa-database"></i>Danh sách các chương</h3>
+                <ul class="box_list_chapter">
+                    {{#each lstchap}}
+                    <li class="item_chapter" style="display: flex;">
+                        <a href="/read/{{this.chaplink}}" class="item_link_chapter" style=" width: 80%;">
+                            <span class="number_chapter">{{this.chapname}}</span>
+                            <span class="date_create_chap">Ngày đăng: {{toDate this.createdAt}}</span>                            
+                        </a>
+                        {{#if ../thisUser}}
+                            <a href="/read/{{this.chaplink}}/delete" style="flex: 1; color: red; display: block; text-decoration: none; text-align: center;" class="btn_delete_chap">Xóa chap</a>
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                    {{!-- <li class="item_chapter" >
+                        <a href="/read/{{chaplink}}" class="item_link_chapter" >
+                            <span class="number_chapter">{{chapname}}</span>
+                            <span class="date_create_chap">{{createdAt}}</span>
+                        </a>
+                        <a href="/read/{{chaplink}}/delete" style="   color: red" class="btn_delete_chap">Xóa chap</a>
+                    </li> --}}
+                </ul>
+            </div>  
+            {{#if session}}
+            <div class="box-cmt" style="padding: 20px 0;">
+                <h2 style="font-size: 25px; line-height: 32px;">Bình luận</h2>
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; padding: 40px 0;">
+                    <textarea placeholder="Hãy nhập bình luận một các có học thức" style="padding: 15px; width: 100%; font-size: 18px; line-height: 25px; background-color: #fff; outline: none;" name="{{session.username}}" id="Ucomment" rows="5"></textarea>
+                </div>
+                    <button style="padding: 10px 30px; border-radius: 10px; font-size: 18px;" name="{{thisbook._id}}" id="btnSub">Đăng lên</button>
+                <div style="padding: 20px 0;">
+                    <ul class="comment_box" style="list-style: none;">
+                        {{#each lstcomment}}
+                        <li class="comment" style="background-color: #505050; padding: 10px; border-radius: 10px; margin: 10px 0;">
+                            <div>
+                                <div style="display: flex; padding: 10px; align-items: center; justify-content: space-between;">
+                                    <h5 style="font-size: 18px;">{{this.username}}</h5>
+                                    <p>{{toFromNow this.createdAt}}</p>
+                                </div>
+                                <p style="font-size: 18px; line-height: 25px; padding: 0 10px; padding-top: 15px; border-top: 1px solid #fff">{{this.comment}}</p>
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            {{else}}
+            <div class="box-cmt" style="padding: 20px 0;">
+                <h2 style="font-size: 25px; line-height: 32px;">Đăng nhập để bình luận</h2>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+<script src="https://b2cbook.up.railway.app/socket.io/socket.io.js"></script>
+<script type = "text/JavaScript" src=" https://MomentJS.com/downloads/moment.js"></script>
+<script>
+    var socket = io();
+
+    var textArea = document.getElementById('Ucomment');
+    var btnSub = document.querySelector('#btnSub');
+    var commentBox = document.querySelector('.comment_box');
+
+    window.onload = function(){
+        btnSub.addEventListener('click', (e) =>{
+            e.preventDefault();
+            var comment = textArea.value;
+            if(!comment){
+                return
+            }
+            textArea.value = '';
+            postComment(comment);
+        });
+
+        function postComment(comment){
+            //edit
+            var data = {
+                username: textArea.name,
+                comment: comment,
+                bookid: btnSub.name,
+                timeFromNow: moment().fromNow()
+            }
+            textArea.nodeValue = "";
+            appendToDom(data);
+            //boardcast
+            boardcastComment(data);
+            //sync mongodb
+            syncWithDb(data);
+        };
+
+        function appendToDom(data){
+            var lTag = document.createElement('li');
+            lTag.classList.add('comment');
+            var markUp = `                            
+                            
+                            <li class="comment" style="background-color: #505050; padding: 10px; border-radius: 10px; margin: 10px 0;">
+                                <div>
+                                    <div style="display: flex; padding: 10px; align-items: center; justify-content: space-between;">
+                                        <h5 style="font-size: 18px;">${data.username}</h5>
+                                        <p>${data.timeFromNow}</p>
+                                    </div>
+                                    <p style="font-size: 18px; line-height: 25px; padding: 0 10px; padding-top: 15px; border-top: 1px solid #fff">${data.comment}</p>
+                                </div>
+                            </li>
+                        `
+            lTag.innerHTML = markUp;
+            commentBox.prepend(lTag);
+        };
+
+        function boardcastComment(data) {
+            socket.emit('comment',data);
+        };
+
+        socket.on('comment', (data) => {
+            appendToDom(data);
+        });
+
+        function syncWithDb(data) {
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+            fetch('/comments', { method: 'Post', body: JSON.stringify(data), headers})
+                .then(response => response.json())
+        };
+
+    }
+</script>

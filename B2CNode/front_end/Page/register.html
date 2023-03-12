@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+	<meta charset="utf-8">	
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>form SIGNIN</title>	
+    
+
+    <link rel="stylesheet" href="../../src/public/css/Page_login_register/style1.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    
+    <div id="wrapper">
+        <form id="form-login" action="" method="post" name="form"  onsubmit="return validator_register()">
+            <h1 class="form-heading" >REGISTER</h1>
+            <div class="form-group">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" class="form-input" name="email" placeholder="EMAIL" autocomplete="off">               
+            </div>
+            <div id="error_email">Vui lòng nhập Email</div>
+            
+
+            <div class="form-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" autocomplete="off" class="form-input" id="userName" placeholder="USERNAME" name="user"> 
+            </div>
+            <div id="error_user">Vui lòng nhập tên đăng nhập</div>
+            
+
+            <div class="form-group">
+                <i class="fa-solid fa-key"></i>
+                <input  type="password" class="form-input imput-conect"  placeholder="PASSWORD" name="password">     
+                <div id="eye">
+                    <i class="fa-regular fa-eye-slash toggle"></i>
+                </div>
+            </div>
+
+            <div id="error_password">Vui lòng nhập mật khẩu</div>
+
+            <div class="form-group">
+                <i class="fa-solid fa-key"></i>
+                <input  type="password" class="form-input imput-conect" placeholder="CONFIRM PASSWORD" name="confirm" >       
+                <div id="eye">
+                    <i class="fa-regular fa-eye-slash toggle"></i>
+                </div>
+            </div>
+            <div id="error_confirmpassword">Vui lòng nhập lại mật khẩu</div>
+            <i class="toggle"></i>
+            <input type="submit" value="SIGNIN"class="form-submit">
+            <div id="f-g_text">Hoặc đăng nhập với: </div>
+            
+            <div class="f-g">  
+                <a id="facebook" href="#"><img src="../assets/img/PageLogin/Facebook_logo.png"  alt=""></a>
+                <a id="google" href="#"> <img src="../assets/img/PageLogin/google_logo.png"  alt=""> </a>
+            </div>
+
+            <p><div class="text-center" style="color: aliceblue;">
+                Đã có tài khoản ? <a href="./Login1.html" >LOG IN</a>
+            </div></p>
+        </form>
+    </div>
+
+    <button id="myBtn_verification">Open popup faile</button>
+    <div id="mypopup_verification" class="popup_verification">
+        <div class="popup_verification_content">
+            <div id="verification" >
+                <span class="close_verification">&times;</span>
+                <h1 class="form-heading" >Nhập mã xác nhận</h1>   
+                <p>Mã xác nhận được gửi đến hòm thư điện tử (Email). Bạn vui lòng kiểm tra tin nhắn và nhập chính xác mã vào ô dưới.</p>
+        
+                <div class="verification_box">
+                    <input  type="text" class="verification_box_input" placeholder="Nhập Mã Xác Nhận"  >       
+                </div>
+                
+                <div class="verification_link">
+                    <a href="#"> <i class="fa-sharp fa-solid fa-rotate-right"></i> Gửi lại mã xác nhận.</a>
+                </div>
+                
+                <input type="submit" value="CONTINUE"class="form-submit">   
+            </div>   
+        </div>
+    </div>
+    
+</body>
+
+<script src="../assets/js/Page_Login/fun.js"></script>
+</html>

@@ -1,6 +1,149 @@
 
-<form action="/upload/{{name}}/addchap" enctype="multipart/form-data" method="POST"> 
-   <input type="text" autocomplete="off" class="form-input" id="chapname" placeholder="Chap name" name="chapname"> 
-   <input type="file" name="myFile" multiple/>
-   <input type="submit" value="Upload a file"/>
-</form>
+<div class="grid wide">
+   <div class="content_chap">
+      <h3 class="title_upload_content_book">Add chap</h3>
+      <div class="box_preview_upload_chap">
+         <div id="preview_img_chap" name="{{link}}">
+
+         </div>
+         <span id="number_file">Chưa có file</span>
+      </div>
+      <form action="/upload/{{link}}/addchap" enctype="multipart/form-data" method="POST"> 
+         <input type="text" autocomplete="off" class="form-input" id="chapname" placeholder="Chap name" name="chapname"> 
+         <input type="file" onchange="previeẉ̣̣()" hidden id="input_chap" name="myFile" multiple/>
+         <input type="submit" id="submit_data" hidden value="Upload a file"/>
+         <p id="bookname" hidden>{{name}}</p>
+         <p id="bookpic" hidden>{{pic}}</p>
+         <p id="booklink" hidden>/read/{{link}}</p>
+         {{#if notFirstTime}}
+            {{#if err}}
+               <p style="margin: 50px 0; font-size: 22px; text-align: center; color: #f00">Tên không hợp lệ hoặc đã tồn tại!</p>
+            {{else}}
+               <p style="margin: 50px 0; font-size: 22px; text-align: center; color: #42ff79">Tạo chap thành công!</p>
+            {{/if}}
+         {{/if}}
+      </form>
+      <div class="btn_select_img" name="{{pic}}"><i class="fa-solid fa-upload"></i>Choose A Photo</div>
+      <div class="submit_chap" name="{{name}}">
+         Tạo chap
+      </div>      
+   </div>
+</div>
+<script src="https://b2cbook.up.railway.app/socket.io/socket.io.js"></script>
+<script>
+   var fileInputUploadChap = document.getElementById('input_chap');
+   var previewChap = document.getElementById('preview_img_chap');
+   var numImg = document.getElementById('number_file');
+   var submitData = document.getElementById('submit_data');
+   var btnImgChap = document.getElementsByClassName('btn_select_img')[0];
+   var submitChap = document.getElementsByClassName('submit_chap')[0];
+   var nameChap = document.getElementById('chapname');
+   var typeImg = ["jpeg", "png", "jpg"];// các type ảnh
+
+   btnImgChap.onclick = function(){
+      fileInputUploadChap.click();
+   }
+
+
+   function submitChapData(){
+      submitData.click();
+   }
+
+
+   function previeẉ̣̣(){
+      previewChap.innerHTML = "";
+      numImg.textContent = `đã có ${fileInputUploadChap.files.length} file được chọn`;
+      for(i of fileInputUploadChap.files){
+         let reader = new FileReader();
+         let figure = document.createElement("div");
+         var img_ext = fileInputUploadChap.value.substring(fileInputUploadChap.value.lastIndexOf('.')+1);
+         var checkTypeImg = typeImg.includes(img_ext);
+         reader.onload = () =>{
+            if(checkTypeImg == false){
+               // nếu không phải ảnh sẽ xóa ảnh chính và xóa giá trị ảnh nhập vào
+               fileInputUploadChap.value = '';
+               alert("Không phải ảnh!")
+            }else{
+               let img = document.createElement("img");
+               img.setAttribute("src", reader.result);
+               figure.appendChild(img)
+            }
+         }
+         previewChap.appendChild(figure);
+         reader.readAsDataURL(i);
+      }
+   }
+
+   var notifyBox = document.getElementsByClassName('list_notify_header')[0];
+   var bookname = document.getElementById('bookname');
+   var booklink = document.getElementById('booklink');
+   var bookimg = document.getElementById('bookpic');
+
+   var socket = io();   
+
+   submitChap.onclick = function(){
+      if(nameChap.value != ''){
+         if(fileInputUploadChap.value != ''){
+            //truyền thông báo lên notify
+            var notify = {
+               chapname: nameChap.value,
+               bookname: bookname.innerHTML,
+               bookImg: bookimg.innerHTML,
+               booklink: booklink.innerHTML
+            }
+            addNotify(notify);
+            console.log(notify);
+            submitChapData();
+            //alert('Tạo chap thành công')   
+         }else{
+            alert('Bạn chưa chọn ảnh')   
+         }
+      }else{
+         alert('Bạn chưa nhập tên chap')
+      }
+   }
+
+   function addNotify(notify) {
+      //add to your notify
+      appendToDom(notify);
+      //boardcast
+      boardcastNotify(notify);
+      //call db
+      syncWithDb(notify);
+   }
+
+   function appendToDom(notify) {
+      var lTag = document.createElement('li');
+      lTag.classList.add('item_notify_header');
+      var markUp = `       
+                           <li class="item_notify_header item_notify_header_viewed">
+                              <a href="${notify.booklink}" class="link_item_notify_header">
+                                <img class="img_item_notify_header" src="${notify.bookImg}" alt="">
+                                <div class="content_item_notify_header">
+                                    <h4 class="namebook_content_item_notify_header">${notify.bookname}</h4>
+                                    <div class="status_box">
+                                        <span class="status_title">Trạng thái:</span>
+                                        <span class="status_disc">Sách vừa ra</span>
+                                        <span class="status_chap">${notify.chapname}</span>
+                                    </div>
+                                </div>
+                              </a>
+                           </li>
+                  `
+      lTag.innerHTML = markUp;
+      notifyBox.append(lTag);
+   }
+
+   function boardcastNotify(notify) {
+      socket.emit('notify', notify);
+   };
+
+   function syncWithDb(notify) {
+      const headers = {
+          'Content-Type': 'application/json'
+      };
+      fetch('/notify', { method: 'Post', body: JSON.stringify(notify), headers})
+          .then(response => response.json())
+   };
+
+</script>

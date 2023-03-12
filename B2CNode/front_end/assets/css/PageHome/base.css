@@ -1,0 +1,53 @@
+:root{
+    --primary-color: #292828;
+    --box-notification: #434141;
+    --background-page: #242121;
+    --hover-color: #373737;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 62.5%; /* 1rem = 10px */
+    line-height: 1.6rem;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+.active{
+    display: block;
+}
+
+/* .overlay{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(65, 65, 65, 0);
+    z-index: 2;    
+} */
+
+@keyframes headerNotifyGrowth{
+    from{
+        opacity: 0;
+        transform: scale(0);
+    }
+    to{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes notify_mobile{
+    from{
+        transform: translateX(100%);
+    }
+    to{
+        transform: translateX(0%)
+    }
+}

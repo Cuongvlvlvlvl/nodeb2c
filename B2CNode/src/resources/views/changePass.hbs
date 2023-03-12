@@ -1,0 +1,32 @@
+<style>
+    .box_change_pass_page{
+        padding: 20px;
+        height: 500px;
+    }
+    .box_change_pass_page form{
+        width: 500px;
+    }
+    .title_change_pass_page{
+        font-size: 30px;
+        line-height: 42px;
+        padding-top: 50px;
+        margin-bottom: 20px;
+    }
+</style>
+<div class="box_change_pass_page grid wide">
+    <h3 class="title_change_pass_page">Đổi mật khẩu</h3>
+    <form action="/user/changePass" method="post">
+    <input type="password" name="oldPass" id="oldPass" placeholder="Nhập mật khẩu cũ">
+    <br>
+    <input type="password" name="newPass" id="newPass" placeholder="Nhập mật khẩu mới">
+    <br>
+    <input type="submit" value="Đổi mật khẩu">
+    <br>
+    {{#if err}}
+    <p>Vui lòng nhập mật khẩu mới không nhập lại mật khẩu hiện tại!</p>
+    {{/if}}
+    </form>
+</div>
+<script>
+
+</script>

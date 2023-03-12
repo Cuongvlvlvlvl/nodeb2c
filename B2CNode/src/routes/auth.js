@@ -7,8 +7,10 @@ const ctl = require('../app/controllers/AuthController');
 
 router.get('/login', ctl.login);
 
+router.get('/err', ctl.err);
+
 router.post('/login/password', passport.authenticate('local', {
-  failureRedirect: '/auth/login?err=true'
+  failureRedirect: '/auth/err'
   }),
   function(req, res){
     res.redirect('/');
@@ -30,7 +32,7 @@ router.get('/login/facebook', passport.authenticate('facebook', {scope:'email'})
 
 router.get('/login/facebook/callback', passport.authenticate('facebook', {
     successRedirect : '/',
-  failureRedirect: '/auth/login'
+  failureRedirect: '/auth/err'
   }),
   function(req, res){
   res.redirect('/');
@@ -42,7 +44,7 @@ router.get('/login/google', passport.authenticate('google', {
 }));
 
 router.get('/login/google/callback', passport.authenticate('google', {
-  failureRedirect: '/auth/login'
+  failureRedirect: '/auth/err'
   }),
   function(req, res){
   res.redirect('/');
@@ -50,6 +52,10 @@ router.get('/login/google/callback', passport.authenticate('google', {
 );
 
 router.get('/signup', ctl.signupr);
+
+router.get('/confirm', ctl.emailconfirmcb);
+
+router.post('/confirm', ctl.emailconfirm);
 
 router.post('/signup', ctl.signup);
 

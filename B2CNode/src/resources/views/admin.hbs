@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;700&amp;family=Roboto:wght@300;400&amp;display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="/img/favicon.png">
+    <title>Admin B2C</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header{
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 40px;
+            background-color: rgb(129, 129, 129);
+            padding: 20px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #1d2327;
+        }
+        h4{
+            font-weight: 500;
+        }
+        .h4_name_admin{
+            font-size: 16px;
+            color: #fff;
+        }
+        .info_box_admin{
+            position: relative;
+            font-size: 16px;
+            line-height: 40px;
+            color: #fff;
+        }
+        .go_back_home{
+            text-decoration: none;
+            color: #fff;
+        }
+        .go_back_home:hover{
+            color: red;
+        }
+        .app{
+            margin-top: 40px;
+            width: 100%;
+            height: calc(100vh - 40px);
+            display: flex;
+        }
+        .tab_left_app{
+            height: 100%;
+            width: 200px;
+            background-color: #1d2327; 
+        }
+        .box_container{            
+            flex: 1;
+        }
+        .list_tab_left_app{
+            width: 100%;
+            list-style: none;  
+        }
+        .item__tab_left_app{
+            text-align: center;
+            width: 100%;
+            font-size: 16px;
+            line-height: 50px;
+            height: 50px;
+            border-bottom: 1px solid #fff;
+        }
+        .item__tab_left_app a{
+            color: #fff;
+            cursor: pointer;
+            height: 100%;
+            width: 100%;
+            display: block;
+            text-decoration: none;
+        }
+        .{{changeMain tab}},.active_left{
+            background-color: #e14d43;
+        }
+        .pane__tab_left_app{
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        .account_user_active_pane,
+        .book_book_active_pane,
+        .views_views_active_pane,
+        .income_income_active_pane{
+            display: block;
+        }
+        .box_content_right{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: calc(100% - 40px);
+        }
+        .box_content_right_spec{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: calc(100% - 50px);
+        }
+        .list_tab_top_app{
+            display: flex;
+            list-style: none;
+            width: 100%;
+        }
+        .list_tab_top_app a{
+            text-decoration: none;
+            color: #000;
+            width: 100%;
+            height: 100%;
+            padding: 10px 20px;
+            display: block;
+        }
+        .item_tab_top_app,.item_tab_top_app_qltr{
+            background-color: #ccc;
+            flex: 1;
+            text-align: center;
+            align-items: center;
+            cursor: pointer;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+            font-weight: 600;
+        }
+        .box_content_top{
+            width: 100%;
+            height: 100%;
+        }
+        .pane_tab_top_app,.pane_tab_top_app_qltr{
+            display: none;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+        }    
+        .active_top_pane{
+            display: flex;
+        }
+        .{{tab}},.active_top{
+            display: block;
+            background-color: #fff;
+            border-bottom: 1px solid #fff;
+            color: red;
+        }
+        .list{
+            height: 100%;
+            width: 100%;
+            list-style: none;
+            overflow-y: scroll;
+        }
+        .item{
+            width: 100%;
+            padding: 10px 20px;
+            border-bottom: 1px solid #000;
+        }
+        .item:hover{
+            background-color: #bfb3ca42;
+        }
+        .box_item{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .disable_account{
+            color: red;
+        }
+        .active_account{
+            color: green;
+        }
+        .status_account{
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .status_account:hover{
+            color: #000;
+        }
+        .box_user {
+            width: 600px;
+        }
+        .user_name{
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h4 class="h4_name_admin">Xin chào, {{session.username}}</h4>
+        <div class="info_box_admin">
+        <a href="/" class="go_back_home">Quay về trang chủ</a>
+        </div>
+    </header>
+    <div class="app">
+        <div class="tab_left_app">
+            <ul class="list_tab_left_app">
+                <li class="item__tab_left_app user_active"><a href="/admin/all_user">Quản lý tài khoản</a></li>
+                <li class="item__tab_left_app book_active" ><a href="/admin/all_book">Quản lý truyện</a></li>
+                <li class="item__tab_left_app views_active" ><a href="/admin/views_analyze">Thống kê lượt xem</a></li>
+                <li class="item__tab_left_app income_active" ><a href="/admin/income_analyze">Thống kê doanh thu</a></li>
+            </ul>
+        </div>
+        <div class="box_container">
+            {{!-- tab quản lý tài khoản --}}
+            <div class="pane__tab_left_app account_{{changeMain tab}}_pane">
+                <div class="box_content_right">
+                    {{!-- chọn tab lý tài khoản --}}
+                    <ul class="list_tab_top_app">
+                        <li class="item_tab_top_app all_user"><a href="/admin/all_user">Tât cả tài khoản người dùng</a></li>
+                        <li class="item_tab_top_app post_user"><a href="/admin/post_user">Quản lí quyền đăng sách</a></li>
+                        <li class="item_tab_top_app admin_user"><a href="/admin/admin_user">Quản lí quyền admin</a></li>
+                        <li class="item_tab_top_app disable_user"><a href="/admin/disable_user">Tài khoản bị disable</a></li>
+                    </ul>
+                    <div class="box_content_top">
+                        {{!-- tab hiện thị --}}
+                        <div class="pane_tab_top_app active_top_pane">
+                            <ul class="list">
+                                {{#each lstUser}}
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">{{this.username}}</h4>
+                                            <h4 class="email">{{this.email}}</h4>
+                                        </div>
+                                        <h4>Ngày tạo: {{toDate this.createdAt}}</h4>
+                                        {{#if (checkType ../tab this)}}
+                                            <span style="color: #000">{{changeSpan ../tab}}<a href="/admin/{{../tab}}/{{this.email}}/{{disableRule ../tab}}" class="status_account active_account">Active</a></span> 
+                                        {{else}}
+                                            <span style="color: #000">{{changeSpan ../tab}}<a href="/admin/{{../tab}}/{{this.email}}/{{enableRule ../tab}}" class="status_account disable_account">Disable</a></span> 
+                                        {{/if}}
+                                    </div>
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{!-- tab quản lý truyện --}}
+            <div class="pane__tab_left_app book_{{changeMain tab}}_pane">
+                <div class="box_content_right">
+                    <ul class="list_tab_top_app">
+                        <li class="item_tab_top_app_qltr all_book"><a href="/admin/all_book">Tất cả truyện</a></li>
+                        <li class="item_tab_top_app_qltr vip_book"><a href="/admin/vip_book">Quản lí vip truyện</a></li>
+                        <li class="item_tab_top_app_qltr disable_book"><a href="/admin/disable_book">Truyện bị disable</a></li>
+                    </ul>
+                    <div class="box_content_top">
+                        <div class="pane_tab_top_app_qltr active_top_pane">
+                            {{!-- tab tổng truyện  --}}
+                            <ul class="list">
+                                {{#each lstBook}}
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Tên truyện: {{this.bookname}}</h4>
+                                            <h4 class="email">Email người đăng: {{this.email}}</h4>
+                                        </div>
+                                        <h4>Ngày tạo: {{toDate this.createdAt}}</h4>
+                                        {{#if (checkTypeBook ../tab this)}}
+                                            <span style="color: #000">{{changeSpanBook ../tab}}<a href="/admin/{{../tab}}/{{this._id}}/{{disableRuleBook ../tab}}" class="status_account active_account">Active</a></span> 
+                                        {{else}}
+                                            <span style="color: #000">{{changeSpanBook ../tab}}<a href="/admin/{{../tab}}/{{this._id}}/{{enableRuleBook ../tab}}" class="status_account disable_account">Disable</a></span> 
+                                        {{/if}}
+                                    </div>
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <div class="pane_tab_top_app_qltr">
+                            {{!-- tab truyện bị disable  --}}
+                            <ul class="list">
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{!-- tab quản lý Views --}}
+            <div class="pane__tab_left_app views_{{changeMain tab}}_pane">
+                <div class="box_content_right" style="height: 100%;">
+                    <div class="box_content_top">
+                        {{!-- tab hiện thị --}}
+                        <div class="pane_tab_top_app active_top_pane">
+                            <ul class="list">
+                                {{#each lstView}}
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Tên sách: {{this.bookname}}</h4>
+                                            <h4 class="email">Email người đăng: {{this.email}}</h4>
+                                        </div>
+                                        <h4>Ngày tạo: {{toDate this.createdAt}}</h4>
+                                        <span style="color: #000">Lượt xem: <a class="status_account" style="color: #7e0073;">{{this.viewCount}}</a></span> 
+                                    </div>
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{!-- tab quản lý income --}}
+            <div class="pane__tab_left_app income_{{changeMain tab}}_pane">
+                <div class="box_content_right_spec">
+                    <div class="box_content_top">
+                        <ul class="list_tab_top_app">
+                            <li class="item_tab_top_app active_top"><a style="font-size: 25px; background-color: #684e32; color: #ffd000; height: 48px;" href="/admin/income_analyze">Tổng thu nhập: {{sum}} VND</a></li>
+                        </ul>
+                        {{!-- tab hiện thị --}}
+                        <div class="pane_tab_top_app active_top_pane">
+                            <ul class="list">
+                                {{#each lstIncome}}
+                                <li class="item">
+                                    <div class="box_item">
+                                        <div class="box_user">
+                                            <h4 class="user_name">Tên tài khoản: {{this.username}}</h4>
+                                            <h4 class="email">Email: {{this.email}}</h4>
+                                        </div>
+                                        <h4></h4>
+                                        <span style="color: #000">Tổng chi: <a class="status_account" style="color: #e6b122;">{{this.totalMoney}}</a><spanstyle="color: #000"> đ</spanstyle=></span> 
+                                    </div>
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

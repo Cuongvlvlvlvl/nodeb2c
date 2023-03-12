@@ -19,15 +19,15 @@
         // đánh dấu là đã đọc tất cả các thông báo
         document.getElementsByClassName('list_notify_header')[0].scrollTop = - document.getElementsByClassName('list_notify_header')[0].scrollHeight;
         document.getElementsByClassName('notification_header')[0].classList.toggle('notification_header_active_js');
-        document.getElementsByClassName('see_all_notify')[0].onclick = function(){
-            var li = document.getElementsByClassName('item_notify_header');
-            var length_li = li.length;
-            for(var i = 0; i < length_li; i++){                    
-                if(li[i].classList.contains('item_notify_header_viewed')){
-                    li[i].classList.remove('item_notify_header_viewed');            
-                }
-            }
-        }
+        // document.getElementsByClassName('see_all_notify')[0].onclick = function(){
+        //     var li = document.getElementsByClassName('item_notify_header');
+        //     var length_li = li.length;
+        //     for(var i = 0; i < length_li; i++){                    
+        //         if(li[i].classList.contains('item_notify_header_viewed')){
+        //             li[i].classList.remove('item_notify_header_viewed');            
+        //         }
+        //     }
+        // }
         document.getElementsByClassName('box_search')[0].classList.remove('show_box_search')
         document.getElementsByClassName('test')[0].classList.add('open_overlay');
     }
